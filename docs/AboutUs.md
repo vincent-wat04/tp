@@ -21,15 +21,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Yu Zongmin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/zongmin-yu.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/zongmin-yu)]
+[[portfolio](team/zongmin-yu.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Meeting Management
 
 ### Johnny Doe
 
