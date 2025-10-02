@@ -38,15 +38,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data Persistence
 
-### Jean Doe
+### Neo Tsay Yong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/nty-dev.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/nty-dev)]
+[[portfolio](http://nty-dev.github.io)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Command Architect (Designing and Writing the Command Module)
 
 ### Benn Tan
 
