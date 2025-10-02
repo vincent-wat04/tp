@@ -11,34 +11,32 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Faizal Rafi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/syemfai.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/syemfai)]
 
 * Role: Project Advisor
 
-### Jane Doe
+### Yu Zongmin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/zongmin-yu.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/zongmin-yu)]
+[[portfolio](team/zongmin-yu.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Meeting Management
+
+### Qu Qiancheng
+
+<img src="images/vincent-wat04.png" width="200px">
+
+[[github](http://github.com/vincent-wat04)] [[portfolio](team/vincent-wat04.md)]
+
+* Role: Developer
+* Responsibilities: Data Persistence
 
 ### Neo Tsay Yong
 
@@ -50,12 +48,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Command Architect (Designing and Writing the Command Module)
 
-### James Doe
+### Benn Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/btjm123.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/btjm123)]
+[[portfolio](http://findbenn.com)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Contacts Architect (Designing and Writing the Contacts Module)
