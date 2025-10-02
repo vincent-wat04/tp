@@ -19,41 +19,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Yu Zongmin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/zongmin-yu.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Member
-* Responsibilities: UI tester
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](https://github.com/zongmin-yu)]
+[[portfolio](team/zongmin-yu.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Meeting Management
 
-### Jean Doe
+### Qu Qiancheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/vincent-wat04.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/vincent-wat04)] [[portfolio](team/vincent-wat04.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Data Persistence
+
+### Neo Tsay Yong
+
+<img src="images/nty-dev.png" width="200px">
+
+[[github](http://github.com/nty-dev)]
+[[portfolio](http://nty-dev.github.io)]
+
+* Role: Developer
+* Responsibilities: Command Architect (Designing and Writing the Command Module)
+
+### Benn Tan
+
+<img src="images/btjm123.png" width="200px">
+
+[[github](http://github.com/btjm123)]
+[[portfolio](http://findbenn.com)]
+
+* Role: Developer
+* Responsibilities: Contacts Architect (Designing and Writing the Contacts Module)
