@@ -29,14 +29,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Qu Qiancheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/vincent-wat04.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/vincent-wat04)] [[portfolio](team/vincent-wat04.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Data Persistence
 
 ### Jean Doe
 
