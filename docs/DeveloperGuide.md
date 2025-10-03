@@ -64,11 +64,11 @@ The bulk of the app's work is done by the following four components:
 ### Product scope
 
 **Target user profile**:
-* NUS students or working professionals who need to manage a significant number of contacts  
-* Prefer desktop apps over mobile/web apps  
-* Can type fast and prefer CLI over GUI  
-* Want to group contacts by tags (e.g., modules, CCAs, work projects)  
-* Comfortable with keyboard-based apps  
+* NUS students or working professionals who need to manage a significant number of contacts
+* Prefer desktop apps over mobile/web apps
+* Can type fast and prefer CLI over GUI
+* Want to group contacts by tags (e.g., modules, CCAs, work projects)
+* Comfortable with keyboard-based apps
 
 **Value proposition**: Manage and retrieve contacts faster than typical GUI apps, with features tailored for grouping, filtering, and organizing by context (academic modules, CCAs, or work projects).
 
@@ -97,48 +97,49 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 #### Use case: Delete a contact
 
 **MSS**
-1. User requests to list all contacts.  
-2. ContactHelper shows the list of contacts.  
-3. User requests to delete a specific contact in the list.  
-4. ContactHelper deletes the contact.  
-   * Use case ends.  
+1. User requests to list all contacts.
+2. ContactHelper shows the list of contacts.
+3. User requests to delete a specific contact in the list.
+4. ContactHelper deletes the contact.
+   * Use case ends.
 
 **Extensions**
-* 2a. The list is empty → Use case ends.  
-* 3a. The given index is invalid → Error shown, return to step 2.  
+* 2a. The list is empty → Use case ends.
+* 3a. The given index is invalid → Error shown, return to step 2.
 
 ---
 
 #### Use case: Tag contacts by module
+
 **MSS**
-1. User requests to add a tag (e.g., “CS2103T”) to a specific contact.  
-2. ContactHelper updates the contact with the new tag.  
-3. Updated contact is shown in the contact list.  
-   * Use case ends.  
+1. User requests to add a tag (e.g., “CS2103T”) to a specific contact.
+2. ContactHelper updates the contact with the new tag.
+3. Updated contact is shown in the contact list.
+   * Use case ends.
 
 **Extensions**
-* 1a. Tag already exists → App prevents duplication.  
-* 1b. Invalid tag format → Error shown.  
+* 1a. Tag already exists → App prevents duplication.
+* 1b. Invalid tag format → Error shown.
 
 ---
 
 ### Non-Functional Requirements
 
-1. Should work on any mainstream OS (Windows, Linux, macOS) with Java 17+.  
-2. Should handle up to 1,000 contacts without noticeable performance issues.  
-3. A user with above-average typing speed should be able to complete core tasks faster using CLI than with a GUI-based app.  
-4. Data should be saved automatically after any modification.  
-5. The app should start up within 2 seconds on a typical laptop.  
-6. The system should be extensible for future modules/features (e.g., linking contacts to events).  
+1. Should work on any mainstream OS (Windows, Linux, macOS) with Java 17+.
+2. Should handle up to 1,000 contacts without noticeable performance issues.
+3. A user with above-average typing speed should be able to complete core tasks faster using CLI than with a GUI-based app.
+4. Data should be saved automatically after any modification.
+5. The app should start up within 2 seconds on a typical laptop.
+6. The system should be extensible for future modules/features (e.g., linking contacts to events).
 
 ---
 
 ### Glossary
 
-* **CLI**: Command Line Interface.  
-* **Contact**: A record representing a person with fields such as name, phone, and email.  
-* **Tag**: A label assigned to contacts for grouping (e.g., “CS2103T”, “Family”).  
-* **Command**: A textual instruction input by the user.  
-* **Module tag**: A tag representing an academic module (e.g., “CS2103T”) used to group contacts.  
+* **CLI**: Command Line Interface.
+* **Contact**: A record representing a person with fields such as name, phone, and email.
+* **Tag**: A label assigned to contacts for grouping (e.g., “CS2103T”, “Family”).
+* **Command**: A textual instruction input by the user.
+* **Module tag**: A tag representing an academic module (e.g., “CS2103T”) used to group contacts.
 
 --------------------------------------------------------------------------------------------------------------------
