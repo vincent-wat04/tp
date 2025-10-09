@@ -2,28 +2,39 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all persons that satisfy the provided predicate.
+ * <p>
+ * Backward compatible with name-keyword search, and now also supports exact tag
+ * filtering via {@code t/TAG}. When both keywords and tags are supplied,
+ * results
+ * must match both (logical AND). Multiple {@code t/} values are allowed
+ * (logical OR).
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by name keywords and/or tags.\n"
+            + "Name match: case-insensitive contains.\n"
+            + "Tag match: exact (case-sensitive). Multiple t/ are AND-ed.\n"
+            + "Parameters: [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...]\n"
+            + "Examples:\n"
+            + "  " + COMMAND_WORD + " alice bob\n"
+            + "  " + COMMAND_WORD + " t/clients t/vip\n"
+            + "  " + COMMAND_WORD + " alice t/priority";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Person> predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(Predicate<Person> predicate) {
+        this.predicate = requireNonNull(predicate);
     }
 
     @Override
@@ -36,17 +47,9 @@ public class FindCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
-            return false;
-        }
-
-        FindCommand otherFindCommand = (FindCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
+        return other == this
+                || (other instanceof FindCommand)
+                        && predicate.equals(((FindCommand) other).predicate);
     }
 
     @Override
