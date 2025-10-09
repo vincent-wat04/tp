@@ -7,6 +7,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -22,12 +23,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_COMPANY = "";
+    public static final String DEFAULT_NEXT_MEETING = NextMeeting.DEFAULT_VALUE;
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Company company;
+    private NextMeeting nextMeeting;
     private Set<Tag> tags;
 
     /**
@@ -39,6 +42,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         company = new Company(DEFAULT_COMPANY);
+        nextMeeting = new NextMeeting(DEFAULT_NEXT_MEETING);
         tags = new HashSet<>();
     }
 
@@ -51,6 +55,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         company = personToCopy.getCompany();
+        nextMeeting = personToCopy.getNextMeeting();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -102,8 +107,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code NextMeeting} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNextMeeting(String nextMeeting) {
+        this.nextMeeting = new NextMeeting(nextMeeting);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, company, tags);
+        return new Person(name, phone, email, address, company, nextMeeting, tags);
     }
 
 }

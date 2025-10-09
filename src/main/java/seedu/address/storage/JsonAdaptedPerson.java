@@ -14,6 +14,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String company;
+    private final String nextMeeting;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -38,12 +40,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("company") String company, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("company") String company, @JsonProperty("nextMeeting") String nextMeeting,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.company = company;
+        this.nextMeeting = nextMeeting;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -58,6 +62,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         company = source.getCompany().value;
+        nextMeeting = source.getNextMeeting().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -108,8 +113,14 @@ class JsonAdaptedPerson {
 
         final Company modelCompany = new Company(company == null ? "" : company);
 
+        final String resolvedNextMeeting = nextMeeting == null ? NextMeeting.DEFAULT_VALUE : nextMeeting;
+        if (!NextMeeting.isValidNextMeeting(resolvedNextMeeting)) {
+            throw new IllegalValueException(NextMeeting.MESSAGE_CONSTRAINTS);
+        }
+        final NextMeeting modelNextMeeting = new NextMeeting(resolvedNextMeeting);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, modelNextMeeting, modelTags);
     }
 
 }
