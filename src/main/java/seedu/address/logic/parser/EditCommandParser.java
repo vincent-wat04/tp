@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,11 +35,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-<<<<<<< HEAD
                         PREFIX_COMPANY, PREFIX_NEXT_MEETING, PREFIX_TAG);
-=======
-                        PREFIX_NEXT_MEETING, PREFIX_TAG);
->>>>>>> 01549fbd (Add optional next meeting field support)
 
         Index index;
 
@@ -51,11 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-<<<<<<< HEAD
                 PREFIX_COMPANY, PREFIX_NEXT_MEETING);
-=======
-                PREFIX_NEXT_MEETING);
->>>>>>> 01549fbd (Add optional next meeting field support)
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -71,12 +62,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-<<<<<<< HEAD
         if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
             editPersonDescriptor.setCompany(ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
         }
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
         if (argMultimap.getValue(PREFIX_NEXT_MEETING).isPresent()) {
             editPersonDescriptor.setNextMeeting(
                     ParserUtil.parseNextMeeting(argMultimap.getValue(PREFIX_NEXT_MEETING).get()));

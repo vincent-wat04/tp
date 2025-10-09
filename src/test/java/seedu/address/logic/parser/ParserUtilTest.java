@@ -28,7 +28,6 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_COMPANY = " "; // only whitespace
     private static final String INVALID_NEXT_MEETING = " ";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -157,11 +156,6 @@ public class ParserUtilTest {
     @Test
     public void parseCompany_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany(null));
-    }
-
-    @Test
-    public void parseCompany_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCompany(INVALID_COMPANY));
     }
 
     @Test

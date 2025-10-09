@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -48,10 +47,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-<<<<<<< HEAD
             + "[" + PREFIX_COMPANY + "COMPANY] "
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
             + "[" + PREFIX_NEXT_MEETING + "NEXT_MEETING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -117,13 +113,8 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-<<<<<<< HEAD
         Company updatedCompany = editPersonDescriptor.getCompany().orElse(personToEdit.getCompany());
         NextMeeting updatedNextMeeting = editPersonDescriptor.getNextMeeting().orElse(personToEdit.getNextMeeting());
-=======
-        NextMeeting updatedNextMeeting = editPersonDescriptor.getNextMeeting()
-                .orElse(personToEdit.getNextMeeting());
->>>>>>> 01549fbd (Add optional next meeting field support)
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
@@ -163,10 +154,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-<<<<<<< HEAD
         private Company company;
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
         private NextMeeting nextMeeting;
         private Set<Tag> tags;
 
@@ -181,10 +169,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-<<<<<<< HEAD
             setCompany(toCopy.company);
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
             setNextMeeting(toCopy.nextMeeting);
             setTags(toCopy.tags);
         }
@@ -193,11 +178,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-<<<<<<< HEAD
             return CollectionUtil.isAnyNonNull(name, phone, email, address, company, nextMeeting, tags);
-=======
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, nextMeeting, tags);
->>>>>>> 01549fbd (Add optional next meeting field support)
         }
 
         public void setName(Name name) {
@@ -232,7 +213,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-<<<<<<< HEAD
         public void setCompany(Company company) {
             this.company = company;
         }
@@ -241,8 +221,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(company);
         }
 
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
         public void setNextMeeting(NextMeeting nextMeeting) {
             this.nextMeeting = nextMeeting;
         }
@@ -284,10 +262,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-<<<<<<< HEAD
                     && Objects.equals(company, otherEditPersonDescriptor.company)
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
                     && Objects.equals(nextMeeting, otherEditPersonDescriptor.nextMeeting)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -299,10 +274,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
-<<<<<<< HEAD
                     .add("company", company)
-=======
->>>>>>> 01549fbd (Add optional next meeting field support)
                     .add("nextMeeting", nextMeeting)
                     .add("tags", tags)
                     .toString();
