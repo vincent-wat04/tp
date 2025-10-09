@@ -1,63 +1,97 @@
-<head-bottom>
-  <link rel="stylesheet" href="{{baseUrl}}/stylesheets/main.css">
-</head-bottom>
+<frontmatter>
+  title: ContactHelper
+</frontmatter>
 
-<header sticky>
-  <navbar type="dark">
-    <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">ContactHelper</a>
-    <li><a href="{{baseUrl}}/index.html" class="nav-link">Home</a></li>
-    <li><a href="{{baseUrl}}/UserGuide.html" class="nav-link">User Guide</a></li>
-    <li><a href="{{baseUrl}}/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
-    <li><a href="{{baseUrl}}/AboutUs.html" class="nav-link">About Us</a></li>
-    <li><a href="https://github.com/se-edu/addressbook-level3" target="_blank" class="nav-link"><md>:fab-github:</md></a>
-    </li>
-    <li slot="right">
-      <form class="navbar-form">
-        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
-      </form>
-    </li>
-  </navbar>
-</header>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="{{ baseUrl }}/index.html">
+      <!-- Project name / brand -->
+      ContactHelper
+    </a>
 
-<div id="flex-body">
-  <nav id="site-nav">
-    <div class="site-nav-top">
-      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <!-- Project pages -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ baseUrl }}/UserGuide.html">User Guide</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ baseUrl }}/DeveloperGuide.html">Developer Guide</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ baseUrl }}/AboutUs.html">About Us</a>
+        </li>
+
+        <!-- Optional: link to contact page if you have one -->
+        <!--
+        <li class="nav-item">
+          <a class="nav-link" href="{{ baseUrl }}/ContactUs.html">Contact</a>
+        </li>
+        -->
+
+      </ul>
+
+      <!-- Right-side links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" target="_blank"
+             href="https://github.com/AY2526S1-CS2103T-F15A-3/tp">
+            GitHub
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="_blank"
+             href="https://github.com/AY2526S1-CS2103T-F15A-3/tp/actions">
+            Build Status
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="_blank"
+             href="https://ay2526s1-cs2103t-f15a-3.github.io/tp/">
+            Project Site
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="nav-component slim-scroll">
-      <site-nav>
-* [Home]({{ baseUrl }}/index.html)
-* [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
-  * [Quick Start]({{ baseUrl }}/UserGuide.html#quick-start)
-  * [Features]({{ baseUrl }}/UserGuide.html#features)
-  * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
-  * [Command Summary]({{ baseUrl }}/UserGuide.html#faq)
-* [Developer Guide]({{ baseUrl }}/DeveloperGuide.html) :expanded:
-  * [Acknowledgements]({{ baseUrl }}/DeveloperGuide.html#acknowledgements)
-  * [Setting Up]({{ baseUrl }}/DeveloperGuide.html#setting-up-getting-started)
-  * [Design]({{ baseUrl }}/DeveloperGuide.html#design)
-  * [Implementation]({{ baseUrl }}/DeveloperGuide.html#implementation)
-  * [Documentation, logging, testing, configuration, dev-ops]({{ baseUrl }}/DeveloperGuide.html#documentation-logging-testing-configuration-dev-ops)
-  * [Appendix: Requirements]({{ baseUrl }}/DeveloperGuide.html#appendix-requirements)
-  * [Appendix: Instructions for manual testing]({{ baseUrl }}/DeveloperGuide.html#appendix-instructions-for-manual-testing)
-* [About Us]({{ baseUrl }}/AboutUs.html)
-      </site-nav>
-    </div>
-  </nav>
-  <div id="content-wrapper">
-    {{ content }}
   </div>
-  <nav id="page-nav">
-    <div class="nav-component slim-scroll">
-      <page-nav />
-    </div>
-  </nav>
-  <scroll-top-button></scroll-top-button>
-</div>
+</nav>
 
-<footer>
-  <!-- Support MarkBind by including a link to us on your landing page! -->
-  <div class="text-center">
-    <small>[<md>**Powered by**</md> <img src="https://markbind.org/favicon.ico" width="30"> {{MarkBind}}, generated on {{timestamp}}]</small>
+<main class="page container mt-4 mb-5">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="content">
+        <placeholder id="content"/>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-light border-top py-3">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div class="mb-2 mb-md-0">
+      <small>
+        © {{ currentYear }} ContactHelper Team —
+        <span>
+          Based on SE-EDU’s
+          <a target="_blank" href="https://se-education.org">AddressBook-Level3</a>
+          (acknowledged).
+        </span>
+      </small>
+    </div>
+    <div>
+      <small>
+        <a target="_blank" href="https://github.com/AY2526S1-CS2103T-F15A-3/tp/actions/workflows/gradle.yml">
+          CI
+        </a> ·
+        <a target="_blank" href="https://github.com/AY2526S1-CS2103T-F15A-3/tp">Repo</a> ·
+        <a target="_blank" href="https://ay2526s1-cs2103t-f15a-3.github.io/tp/">Website</a>
+      </small>
+    </div>
   </div>
 </footer>
