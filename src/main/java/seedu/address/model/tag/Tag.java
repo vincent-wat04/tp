@@ -1,9 +1,5 @@
 package seedu.address.model.tag;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -13,12 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    private static final Set<String> VALID_TAGS = new HashSet<>(Set.of(
-            "friend", "family", "colleague", "classmate", "client"
-    ));
-
-    public static final String MESSAGE_CONSTRAINTS =
-            "Tag name must be one of the predefined valid tags: " + String.join(", ", getValidTags());
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
 
@@ -29,23 +21,15 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        String trimmedTag = tagName.trim().toLowerCase();
-        checkArgument(isValidTagName(trimmedTag), MESSAGE_CONSTRAINTS);
-        this.tagName = trimmedTag;
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.tagName = tagName;
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return VALID_TAGS.contains(test.trim().toLowerCase());
-    }
-
-    /**
-     * Returns an unmodifiable view of valid tags.
-     */
-    public static Set<String> getValidTags() {
-        return Collections.unmodifiableSet(VALID_TAGS);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -37,6 +38,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_INVALID_TAG =
+            "Tag '%1$s' is not allowed. Allowed tags: %2$s";
 
     private final Person toAdd;
 
@@ -51,6 +54,13 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        for (Tag tag : toAdd.getTags()) {
+            if (!model.getTagRegistry().isAllowed(tag.tagName)) {
+                throw new CommandException(String.format(
+                        MESSAGE_INVALID_TAG, tag.tagName, model.getTagRegistry().view()));
+            }
+        }
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

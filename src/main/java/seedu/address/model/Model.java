@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.TagRegistry;
 
 /**
  * The API of the Model component.
@@ -84,4 +85,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns the {@link TagRegistry} that defines which tag names are currently allowed
+     * in the application.
+     *
+     * <p>The registry acts as a central whitelist that commands (e.g. {@code AddCommand},
+     * {@code EditCommand}, and {@code TagAddCommand}) can query or update to ensure tag
+     * consistency across the model.</p>
+     *
+     * @return the application's {@code TagRegistry} instance
+     */
+    TagRegistry getTagRegistry();
 }
