@@ -55,6 +55,10 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.hasPerson(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
         for (Tag tag : toAdd.getTags()) {
             if (!model.getTagRegistry().isAllowed(tag.tagName)) {
                 throw new CommandException(String.format(
@@ -62,9 +66,7 @@ public class AddCommand extends Command {
             }
         }
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
+
 
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
