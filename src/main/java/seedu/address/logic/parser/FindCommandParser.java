@@ -74,6 +74,12 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        // After you’ve built namePredicate and determined there are no rawTags:
+        if (rawTags.isEmpty() && !preamble.isEmpty()) {
+            // Return plain name predicate to preserve equality with old tests
+            return new FindCommand(namePredicate);
+        }
+
         // Combine with AND so both constraints apply when both present
         Predicate<Person> combined = namePredicate.and(tagPredicate);
         return new FindCommand(combined);
