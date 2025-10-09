@@ -80,6 +80,33 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_personWithAllowedTags_success() throws Exception {
+        // Arrange: create model stub with default allowed tags and a valid person
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withTags("friend", "colleague").build();
+
+        // Act: execute AddCommand
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+
+        // Assert: verify command result and person successfully added
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+    }
+
+    @Test
+    public void execute_personWithDisallowedTag_throwsCommandException() {
+        // Arrange: create model stub and person with disallowed tag
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person invalidPerson = new PersonBuilder().withTags("mentor").build();
+        AddCommand addCommand = new AddCommand(invalidPerson);
+
+        // Act + Assert: executing should throw CommandException
+        assertThrows(CommandException.class, () -> addCommand.execute(modelStub));
+    }
+
+
+    @Test
     public void toStringMethod() {
         AddCommand addCommand = new AddCommand(ALICE);
         String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
