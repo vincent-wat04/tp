@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -34,6 +35,14 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.getTagRegistry().add("friends");
+        model.getTagRegistry().add("husband");
+        model.getTagRegistry().add("owesmoney");
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
