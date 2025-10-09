@@ -47,6 +47,8 @@ public class Messages {
             builder.append("; Company: ")
                     .append(person.getCompany());
         }
+        builder.append("; Next meeting: ")
+                .append(person.getNextMeeting());
         builder.append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
