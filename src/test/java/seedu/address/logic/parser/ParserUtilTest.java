@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -26,11 +27,13 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COMPANY = " "; // only whitespace
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_COMPANY = "Google Inc";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -192,5 +195,36 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseCompany_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany(null));
+    }
+
+    @Test
+    public void parseCompany_validValueWithoutWhitespace_returnsCompany() throws Exception {
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(VALID_COMPANY));
+    }
+
+    @Test
+    public void parseCompany_validValueWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(companyWithWhitespace));
+    }
+
+    @Test
+    public void parseCompany_emptyString_returnsEmptyCompany() throws Exception {
+        Company expectedCompany = new Company("");
+        assertEquals(expectedCompany, ParserUtil.parseCompany(""));
+    }
+
+    @Test
+    public void parseCompany_whitespaceOnly_returnsEmptyCompany() throws Exception {
+        // Whitespace-only strings are trimmed to empty string, which is valid
+        Company expectedCompany = new Company("");
+        assertEquals(expectedCompany, ParserUtil.parseCompany("   "));
     }
 }
