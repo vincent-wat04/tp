@@ -9,6 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -38,6 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setCompany(person.getCompany());
+        descriptor.setNextMeeting(person.getNextMeeting());
         descriptor.setTags(person.getTags());
     }
 
@@ -78,6 +80,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withCompany(String company) {
         descriptor.setCompany(new Company(company));
+        return this;
+    }
+
+    /**
+     * Sets the {@code NextMeeting} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withNextMeeting(String nextMeeting) {
+        descriptor.setNextMeeting(new NextMeeting(nextMeeting));
         return this;
     }
 

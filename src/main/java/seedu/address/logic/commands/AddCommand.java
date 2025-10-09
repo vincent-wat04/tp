@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NEXT_MEETING;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -29,7 +30,10 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
+<<<<<<< HEAD
             + "[" + PREFIX_COMPANY + "COMPANY] "
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
             + "[" + PREFIX_NEXT_MEETING + "NEXT_MEETING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
@@ -37,7 +41,10 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+<<<<<<< HEAD
             + PREFIX_COMPANY + "Google "
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
             + PREFIX_NEXT_MEETING + "Project sync on Fri "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";

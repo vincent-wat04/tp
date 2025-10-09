@@ -98,6 +98,7 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses a {@code String company} into a {@code Company}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -113,6 +114,8 @@ public class ParserUtil {
     }
 
     /**
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
      * Parses a {@code String nextMeeting} into a {@code NextMeeting}.
      * Leading and trailing whitespaces will be trimmed.
      *

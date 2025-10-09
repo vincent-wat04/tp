@@ -42,6 +42,7 @@ public class Messages {
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; Address: ")
+<<<<<<< HEAD
                 .append(person.getAddress());
         if (!person.getCompany().value.isEmpty()) {
             builder.append("; Company: ")
@@ -50,6 +51,12 @@ public class Messages {
         builder.append("; Next meeting: ")
                 .append(person.getNextMeeting());
         builder.append("; Tags: ");
+=======
+                .append(person.getAddress())
+                .append("; Next meeting: ")
+                .append(person.getNextMeeting())
+                .append("; Tags: ");
+>>>>>>> 01549fbd (Add optional next meeting field support)
         person.getTags().forEach(builder::append);
         return builder.toString();
     }

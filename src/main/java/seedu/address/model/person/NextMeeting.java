@@ -11,6 +11,7 @@ public class NextMeeting {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Next meeting can take any values, and it should not be blank";
+    public static final String DEFAULT_VALUE = "No meeting scheduled";
 
     /*
      * The first character of the next meeting must not be a whitespace,

@@ -30,7 +30,10 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+<<<<<<< HEAD
     private final String company;
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
     private final String nextMeeting;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -40,13 +43,20 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+<<<<<<< HEAD
             @JsonProperty("company") String company, @JsonProperty("nextMeeting") String nextMeeting,
+=======
+            @JsonProperty("nextMeeting") String nextMeeting,
+>>>>>>> 01549fbd (Add optional next meeting field support)
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+<<<<<<< HEAD
         this.company = company;
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
         this.nextMeeting = nextMeeting;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -61,7 +71,10 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+<<<<<<< HEAD
         company = source.getCompany().value;
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
         nextMeeting = source.getNextMeeting().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -111,14 +124,23 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+<<<<<<< HEAD
         final Company modelCompany = new Company(company == null ? "" : company);
 
         final String resolvedNextMeeting = nextMeeting == null ? NextMeeting.DEFAULT_VALUE : nextMeeting;
+=======
+        final String resolvedNextMeeting = nextMeeting == null
+                ? NextMeeting.DEFAULT_VALUE
+                : nextMeeting;
+>>>>>>> 01549fbd (Add optional next meeting field support)
         if (!NextMeeting.isValidNextMeeting(resolvedNextMeeting)) {
             throw new IllegalValueException(NextMeeting.MESSAGE_CONSTRAINTS);
         }
         final NextMeeting modelNextMeeting = new NextMeeting(resolvedNextMeeting);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 01549fbd (Add optional next meeting field support)
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, modelNextMeeting, modelTags);
     }
