@@ -21,11 +21,6 @@ import seedu.address.model.tag.TagRegistry;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final TagRegistry tagRegistry;
-
     /**
      * Default set of allowed tags seeded at application startup.
      * These tags represent the initial whitelist that users can use out of the box.
@@ -35,6 +30,11 @@ public class ModelManager implements Model {
     private static final Set<String> DEFAULT_ALLOWED_TAGS = Set.of(
             "friend", "family", "colleague", "classmate", "client"
     );
+
+    private final AddressBook addressBook;
+    private final UserPrefs userPrefs;
+    private final FilteredList<Person> filteredPersons;
+    private final TagRegistry tagRegistry;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

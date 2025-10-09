@@ -91,7 +91,9 @@ public class TagRegistryTest {
             if (expected.isInstance(actual)) {
                 return;
             }
-            throw new AssertionError("Expected " + expected.getName() + " but got " + actual.getClass().getName(), actual);
+            throw new AssertionError("Expected " + expected.getName() + " but got "
+                    + actual.getClass().getName(), actual);
+
         }
         throw new AssertionError("Expected " + expected.getName() + " but no exception thrown");
     }

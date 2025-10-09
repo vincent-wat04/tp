@@ -189,7 +189,8 @@ public class AddCommandTest {
 
         @Override
         public TagRegistry getTagRegistry() {
-            return new TagRegistry(Set.of("friend", "family", "colleague", "classmate", "client", "friends", "owesmoney"));
+            return new TagRegistry(Set.of("friend", "family", "colleague", "classmate",
+                    "client", "friends", "owesmoney"));
         }
     }
 
