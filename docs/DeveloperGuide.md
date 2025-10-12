@@ -45,7 +45,24 @@ The bulk of the app's work is done by the following four components:
 
 ## **Implementation**
 
-(Keep as in AB3 DG unless you have already added new features.)
+### Next meeting field
+
+The next meeting information is modelled as a dedicated value object (`seedu.address.model.person.NextMeeting`) so that validation, defaults, and equality checks stay consistent across the code base.
+
+**Parsing workflow**
+- `CliSyntax.PREFIX_NEXT_MEETING (m/)` marks the optional input.
+- `AddCommandParser` falls back to `NextMeeting.DEFAULT_VALUE` (`"No meeting scheduled"`) when the prefix is absent, while `ParserUtil.parseNextMeeting` trims and validates non-empty input.
+- `EditCommandParser` maps the prefix into `EditCommand.EditPersonDescriptor`, enabling partial updates during `edit`.
+
+**Model and storage**
+- `Person` stores a `NextMeeting` instance alongside existing identity and data fields.
+- `JsonAdaptedPerson` serialises/deserialises the value, substituting the default string when the JSON omits the field so older save files continue to load.
+- `SampleDataUtil` provides illustrative values so that the UI demonstrates the field out of the box.
+
+**UI**
+- `PersonCard` now renders a `nextMeeting` label inside `PersonListCard.fxml`, showing `Next meeting: <value>` so users can see at-a-glance follow-up details.
+
+Automated coverage lives in `AddCommandParserTest`, `EditCommandParserTest`, `ParserUtilTest`, and `PersonTest`, ensuring the prefix behaves correctly, invalid values are rejected, and equality semantics include the new field.
 
 --------------------------------------------------------------------------------------------------------------------
 

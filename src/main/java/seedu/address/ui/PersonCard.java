@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label company;
     @FXML
+    private Label nextMeeting;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -56,8 +59,26 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         company.setText(person.getCompany().value.isEmpty()
                 ? "" : "Company: " + person.getCompany().value);
+        nextMeeting.setText(getNextMeetingText(person));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * Gets the formatted next meeting text for the given person.
+     * This method encapsulates the logic for displaying next meeting information.
+     * Package-private for testing.
+     */
+    static String getNextMeetingText(Person person) {
+        return formatNextMeetingLabel(person.getNextMeeting());
+    }
+
+    /**
+     * Formats a NextMeeting object into a display string.
+     * Package-private for testing.
+     */
+    static String formatNextMeetingLabel(NextMeeting nextMeeting) {
+        return "Next meeting: " + nextMeeting.value;
     }
 }
