@@ -68,8 +68,4 @@ public class PersonCard extends UiPart<Region> {
     static String formatNextMeetingLabel(NextMeeting nextMeeting) {
         return "Next meeting: " + nextMeeting.value;
     }
-
-    String getNextMeetingLabelText() {
-        return nextMeeting.getText();
-    }
 }
