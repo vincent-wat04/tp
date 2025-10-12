@@ -67,6 +67,7 @@ public class PersonCard extends UiPart<Region> {
 
     /**
      * Gets the formatted next meeting text for the given person.
+     * This method encapsulates the logic for displaying next meeting information.
      * Package-private for testing.
      */
     static String getNextMeetingText(Person person) {
@@ -75,6 +76,7 @@ public class PersonCard extends UiPart<Region> {
 
     /**
      * Formats a NextMeeting object into a display string.
+     * Package-private for testing.
      */
     static String formatNextMeetingLabel(NextMeeting nextMeeting) {
         return "Next meeting: " + nextMeeting.value;
