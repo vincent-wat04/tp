@@ -59,10 +59,25 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         company.setText(person.getCompany().value.isEmpty()
                 ? "" : "Company: " + person.getCompany().value);
-        nextMeeting.setText(formatNextMeetingLabel(person.getNextMeeting()));
+        setNextMeetingText(person);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * Gets the formatted next meeting text for the given person.
+     * Package-private for testing.
+     */
+    static String getNextMeetingText(Person person) {
+        return formatNextMeetingLabel(person.getNextMeeting());
+    }
+
+    /**
+     * Sets the next meeting label text for the given person.
+     */
+    void setNextMeetingText(Person person) {
+        nextMeeting.setText(getNextMeetingText(person));
     }
 
     static String formatNextMeetingLabel(NextMeeting nextMeeting) {
