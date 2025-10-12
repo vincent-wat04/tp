@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 
 /**
@@ -58,9 +59,17 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         company.setText(person.getCompany().value.isEmpty()
                 ? "" : "Company: " + person.getCompany().value);
-        nextMeeting.setText("Next meeting: " + person.getNextMeeting().value);
+        nextMeeting.setText(formatNextMeetingLabel(person.getNextMeeting()));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    static String formatNextMeetingLabel(NextMeeting nextMeeting) {
+        return "Next meeting: " + nextMeeting.value;
+    }
+
+    String getNextMeetingLabelText() {
+        return nextMeeting.getText();
     }
 }
