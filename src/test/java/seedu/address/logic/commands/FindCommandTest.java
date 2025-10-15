@@ -7,6 +7,7 @@ import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -77,6 +78,33 @@ public class FindCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+    }
+
+    /** Company-only OR across multiple companies: ALICE & CARL are Google; BENSON is Microsoft. */
+    @Test
+    public void execute_companyOrOnly_multiplePersonsFound() {
+        Predicate<Person> companyOr = p -> {
+            String c = p.getCompany().value.toLowerCase();
+            return c.contains("google") || c.contains("microsoft");
+        };
+        FindCommand command = new FindCommand(companyOr);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        expectedModel.updateFilteredPersonList(companyOr);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL), model.getFilteredPersonList());
+    }
+
+    /** Name + company AND: only ALICE when name contains "Alice" and company contains "Google". */
+    @Test
+    public void execute_nameAndCompany_singlePersonFound() {
+        Predicate<Person> nameAlice = new NameContainsKeywordsPredicate(Arrays.asList("Alice"));
+        Predicate<Person> companyGoogle = p -> p.getCompany().value.toLowerCase().contains("google");
+        Predicate<Person> both = nameAlice.and(companyGoogle);
+        FindCommand command = new FindCommand(both);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        expectedModel.updateFilteredPersonList(both);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(List.of(ALICE), model.getFilteredPersonList());
     }
 
     /**

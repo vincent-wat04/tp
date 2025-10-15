@@ -68,4 +68,32 @@ public class FindCommandParserTest {
         // We don't assert predicate equality here because tag predicates are built
         // inline.
     }
+
+    /** Company-only should parse; single c/ */
+    @Test
+    public void parse_companyOnly_parsesToFindCommand() throws Exception {
+        var cmd = parser.parse(" c/Google");
+        assertTrue(cmd instanceof FindCommand);
+    }
+
+    /** Multiple companies should be OR-combined; ensure it parses. */
+    @Test
+    public void parse_multipleCompanies_parsesToFindCommand() throws Exception {
+        var cmd = parser.parse(" c/Google c/Microsoft");
+        assertTrue(cmd instanceof FindCommand);
+    }
+
+    /** Name + tag + multiple companies (AND across kinds, OR within c/) */
+    @Test
+    public void parse_nameTagsAndCompanies_parsesToFindCommand() throws Exception {
+        var cmd = parser.parse(" Alice t/clients c/Google c/Microsoft");
+        assertTrue(cmd instanceof FindCommand);
+    }
+
+    /** Empty company value should fail. */
+    @Test
+    public void parse_emptyCompany_throwsParseException() {
+        assertParseFailure(parser, " c/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    }
 }
