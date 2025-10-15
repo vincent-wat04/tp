@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
@@ -23,10 +24,11 @@ import seedu.address.model.tag.Tag;
  * <ul>
  * <li>{@code find KEYWORD [KEYWORD]...}</li>
  * <li>{@code find t/TAG [t/TAG]...}</li>
- * <li>{@code find KEYWORD [KEYWORD]... t/TAG [t/TAG]...}</li>
+ * <li>{@code find c/COMPANY [c/COMPANY]...}</li>
+ * <li>{@code find KEYWORD [KEYWORD]... t/TAG [t/TAG]... c/COMPANY [c/COMPANY]...}</li>
  * </ul>
- * Multiple {@code t/} values are OR-ed. If both keywords and tags are given,
- * they are AND-ed.
+ * Multiple {@code t/} values are AND-ed. Multiple {@code c/} values are OR-ed.
+ * If keywords, tags, and/or company are given, they are AND-ed together.
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
@@ -34,8 +36,8 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        // Tokenize to separate optional tag(s) from the preamble (name keywords)
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+        // Tokenize to separate optional tag(s)/company(ies) from the preamble (name keywords)
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_COMPANY);
 
         // Build tag predicate (AND across all provided t/)
         Predicate<Person> tagPredicate = person -> true; // neutral
@@ -59,6 +61,26 @@ public class FindCommandParser implements Parser<FindCommand> {
             };
         }
 
+        // Build company predicate (OR across provided c/ values; case-insensitive substring)
+        Predicate<Person> companyPredicate = person -> true; // neutral
+        List<String> allCompanyValues = argMultimap.getAllValues(PREFIX_COMPANY);
+        boolean hasEmptyCompanyValue = allCompanyValues.stream().anyMatch(s -> s.trim().isEmpty());
+        List<String> rawCompanies = allCompanyValues.stream()
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
+        if (hasEmptyCompanyValue && rawCompanies.isEmpty()) {
+            // c/ present but empty → invalid
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+        if (!rawCompanies.isEmpty()) {
+            final List<String> lowered = rawCompanies.stream().map(String::toLowerCase).collect(Collectors.toList());
+            companyPredicate = person -> {
+                String companyValueLower = person.getCompany().value.toLowerCase();
+                return lowered.stream().anyMatch(companyValueLower::contains);
+            };
+        }
+
         // Build name predicate from preamble (space-separated keywords)
         String preamble = argMultimap.getPreamble().trim();
         Predicate<Person> namePredicate = person -> true; // neutral
@@ -67,21 +89,28 @@ public class FindCommandParser implements Parser<FindCommand> {
             namePredicate = new NameContainsKeywordsPredicate(keywords);
         }
 
-        // If both are neutral, it's an empty query
-        boolean noTags = rawTags.isEmpty();
-        boolean noKeywords = preamble.isEmpty();
-        if (noTags && noKeywords) {
+        // Determine presence
+        boolean hasTags = !rawTags.isEmpty();
+        boolean hasKeywords = !preamble.isEmpty();
+        boolean hasCompanies = !rawCompanies.isEmpty();
+
+        // Reject empty query
+        if (!hasTags && !hasKeywords && !hasCompanies) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // After you’ve built namePredicate and determined there are no rawTags:
-        if (rawTags.isEmpty() && !preamble.isEmpty()) {
-            // Return plain name predicate to preserve equality with old tests
+        // Single-dimension queries: return the concrete predicate for stable equals semantics in tests
+        if (hasKeywords && !hasTags && !hasCompanies) {
             return new FindCommand(namePredicate);
         }
+        if (!hasKeywords && hasTags && !hasCompanies) {
+            return new FindCommand(tagPredicate);
+        }
+        if (!hasKeywords && !hasTags && hasCompanies) {
+            return new FindCommand(companyPredicate);
+        }
 
-        // Combine with AND so both constraints apply when both present
-        Predicate<Person> combined = namePredicate.and(tagPredicate);
-        return new FindCommand(combined);
+        // Combine all present with AND
+        return new FindCommand(namePredicate.and(tagPredicate).and(companyPredicate));
     }
 }
