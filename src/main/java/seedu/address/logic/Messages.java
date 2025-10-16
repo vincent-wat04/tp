@@ -54,4 +54,8 @@ public class Messages {
         return builder.toString();
     }
 
+    public static String getMessageForPersonListShownSummary(int count) {
+        return String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, count);
+    }
+
 }
