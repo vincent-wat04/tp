@@ -101,16 +101,16 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // Single-dimension queries: return the concrete predicate for stable equals semantics in tests
         if (hasKeywords && !hasTags && !hasCompanies) {
-            return new FindCommand(namePredicate);
+            return new FindCommand(namePredicate); // no tag validation needed
         }
         if (!hasKeywords && hasTags && !hasCompanies) {
-            return new FindCommand(tagPredicate);
+            return new FindCommand(tagPredicate, rawTags); // pass tags for allowed-list validation
         }
         if (!hasKeywords && !hasTags && hasCompanies) {
-            return new FindCommand(companyPredicate);
+            return new FindCommand(companyPredicate); // no tag validation needed
         }
 
-        // Combine all present with AND
-        return new FindCommand(namePredicate.and(tagPredicate).and(companyPredicate));
+        // Combine all present with AND; pass rawTags for allowed-list validation
+        return new FindCommand(namePredicate.and(tagPredicate).and(companyPredicate), rawTags);
     }
 }
