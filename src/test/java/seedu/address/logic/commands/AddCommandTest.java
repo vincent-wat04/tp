@@ -192,6 +192,11 @@ public class AddCommandTest {
             return new TagRegistry(Set.of("friend", "family", "colleague", "classmate",
                     "client", "friends", "owesmoney"));
         }
+
+        @Override
+        public void addAllowedTag(String tagName) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
