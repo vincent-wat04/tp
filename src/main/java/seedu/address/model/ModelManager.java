@@ -154,6 +154,17 @@ public class ModelManager implements Model {
         return tagRegistry;
     }
 
+    /**
+     * Adds a new allowed tag name to the tag registry.
+     *
+     * @param tagName the tag name to be added
+     */
+    @Override
+    public void addAllowedTag(String tagName) {
+        tagRegistry.add(tagName);
+    }
+
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
