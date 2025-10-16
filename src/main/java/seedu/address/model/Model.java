@@ -97,4 +97,12 @@ public interface Model {
      * @return the application's {@code TagRegistry} instance
      */
     TagRegistry getTagRegistry();
+
+    /**
+     * Adds a new allowed tag name to the tag registry.
+     *
+     * @param tagName the tag name to be added
+     */
+    void addAllowedTag(String tagName);
+
 }

@@ -46,18 +46,24 @@ public class TagRegistry {
 
     /**
      * Adds a new allowed tag name to the registry.
-     * Returns true if the tag was newly added, false if it already exists or is invalid.
+     * <p>
+     * The tag name is normalized to lowercase and trimmed before being validated.
+     * Only alphanumeric tag names are accepted (see {@code \\p{Alnum}+}).
+     * Returns {@code true} if the tag was successfully added,
+     * and {@code false} if the tag already exists or fails validation.
      *
-     * @param name tag name to add
-     * @return true if successfully added
+     * @param name the tag name to add
+     * @return {@code true} if the tag was newly added, {@code false} otherwise
      */
     public boolean add(String name) {
         Objects.requireNonNull(name);
-        String t = name.trim().toLowerCase();
-        if (!t.matches("\\p{Alnum}+")) {
+        String normalized = name.trim().toLowerCase();
+
+        if (!normalized.matches("\\p{Alnum}+")) {
             return false;
         }
-        return allowed.add(t);
+
+        return allowed.add(normalized);
     }
 
     /**
