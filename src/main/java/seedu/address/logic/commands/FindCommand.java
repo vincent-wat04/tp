@@ -68,7 +68,7 @@ public class FindCommand extends Command {
                     invalid.add(tagName);
                 }
             }
-            
+
             if (!invalid.isEmpty()) {
                 Set<String> allowed = model.getTagRegistry().view();
                 // Do NOT update the filtered list; just warn.
