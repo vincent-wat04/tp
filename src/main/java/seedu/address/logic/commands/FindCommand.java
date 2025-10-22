@@ -57,7 +57,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException{
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         // If user supplied tags, validate them against the allowed registry.
@@ -68,6 +68,7 @@ public class FindCommand extends Command {
                     invalid.add(tagName);
                 }
             }
+            
             if (!invalid.isEmpty()) {
                 Set<String> allowed = model.getTagRegistry().view();
                 // Do NOT update the filtered list; just warn.
