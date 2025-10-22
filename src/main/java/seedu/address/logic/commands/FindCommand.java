@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -56,7 +57,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException{
         requireNonNull(model);
 
         // If user supplied tags, validate them against the allowed registry.
@@ -70,7 +71,7 @@ public class FindCommand extends Command {
             if (!invalid.isEmpty()) {
                 Set<String> allowed = model.getTagRegistry().view();
                 // Do NOT update the filtered list; just warn.
-                return new CommandResult(String.format(MESSAGE_INVALID_FIND_TAG,
+                throw new CommandException(String.format(MESSAGE_INVALID_FIND_TAG,
                         String.join(", ", invalid), allowed));
             }
         }
