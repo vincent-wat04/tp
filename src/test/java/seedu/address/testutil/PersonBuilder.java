@@ -57,9 +57,8 @@ public class PersonBuilder {
         company = personToCopy.getCompany();
         nextMeeting = personToCopy.getNextMeeting()
                 .map(meeting -> new seedu.address.model.person.NextMeeting(meeting.getTitle().toString()))
-                .orElse(
-                    new seedu.address.model.person.NextMeeting(seedu.address.model.person.NextMeeting.DEFAULT_VALUE
-                ));
+                .orElse(new seedu.address.model.person.NextMeeting(
+                        seedu.address.model.person.NextMeeting.DEFAULT_VALUE));
         tags = new HashSet<>(personToCopy.getTags());
     }
 

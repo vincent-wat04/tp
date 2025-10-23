@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Company;
 import seedu.address.model.person.Email;
@@ -32,8 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String company;
-    private final String nextMeeting; // For backward compatibility
-    private final List<JsonAdaptedMeeting> meetings = new ArrayList<>();
+    private final String nextMeeting;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -43,7 +41,6 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("company") String company, @JsonProperty("nextMeeting") String nextMeeting,
-            @JsonProperty("meetings") List<JsonAdaptedMeeting> meetings,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
@@ -51,9 +48,6 @@ class JsonAdaptedPerson {
         this.address = address;
         this.company = company;
         this.nextMeeting = nextMeeting;
-        if (meetings != null) {
-            this.meetings.addAll(meetings);
-        }
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -68,17 +62,9 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         company = source.getCompany().value;
-
-        // For backward compatibility, keep nextMeeting field
         nextMeeting = source.getNextMeeting()
                 .map(meeting -> meeting.getTitle().toString())
                 .orElse(NextMeeting.DEFAULT_VALUE);
-
-        // Add meetings list
-        meetings.addAll(source.getMeetings().stream()
-                .map(JsonAdaptedMeeting::new)
-                .collect(Collectors.toList()));
-
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -129,23 +115,14 @@ class JsonAdaptedPerson {
 
         final Company modelCompany = new Company(company == null ? "" : company);
 
-        // Convert meetings list
-        final List<Meeting> modelMeetings = new ArrayList<>();
-        for (JsonAdaptedMeeting meeting : meetings) {
-            modelMeetings.add(meeting.toModelType());
+        final String resolvedNextMeeting = nextMeeting == null ? NextMeeting.DEFAULT_VALUE : nextMeeting;
+        if (!NextMeeting.isValidNextMeeting(resolvedNextMeeting)) {
+            throw new IllegalValueException(NextMeeting.MESSAGE_CONSTRAINTS);
         }
-
-        // For backward compatibility, if no meetings but has nextMeeting, create a meeting from it
-        if (modelMeetings.isEmpty() && nextMeeting != null && !nextMeeting.equals(NextMeeting.DEFAULT_VALUE)) {
-            // Create a basic meeting from the nextMeeting string for backward compatibility
-            final NextMeeting modelNextMeeting = new NextMeeting(nextMeeting);
-            return new Person(modelName, modelPhone, modelEmail,
-                    modelAddress, modelCompany, modelNextMeeting,
-                    new HashSet<>(personTags));
-        }
+        final NextMeeting modelNextMeeting = new NextMeeting(resolvedNextMeeting);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, modelMeetings, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelCompany, modelNextMeeting, modelTags);
     }
 
 }
