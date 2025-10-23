@@ -24,7 +24,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/zongmin-yu.png" width="200px">
 
 [[github](https://github.com/zongmin-yu)]
-[[portfolio](team/zongmin-yu.md)]
 
 * Role: Developer
 * Responsibilities: Meeting Management
@@ -33,7 +32,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/vincent-wat04.png" width="200px">
 
-[[github](http://github.com/vincent-wat04)] [[portfolio](team/vincent-wat04.md)]
+[[github](http://github.com/vincent-wat04)]
 
 * Role: Developer
 * Responsibilities: Data Persistence
