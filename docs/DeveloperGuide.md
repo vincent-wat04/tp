@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# ContactHelper Developer Guide
+# MeetCLI Developer Guide
 
 <page-nav-print />
 
@@ -39,7 +39,7 @@ The bulk of the app's work is done by the following four components:
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
-(… keep existing architecture/logic/UI/storage sections as they are, just replacing AB3 → ContactHelper when needed …)
+(… keep existing architecture/logic/UI/storage sections as they are, just replacing AB3 → MeetCLI when needed …)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -115,9 +115,9 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 
 **MSS**
 1. User requests to list all contacts.
-2. ContactHelper shows the list of contacts.
+2. MeetCLI shows the list of contacts.
 3. User requests to delete a specific contact in the list.
-4. ContactHelper deletes the contact.
+4. MeetCLI deletes the contact.
    * Use case ends.
 
 **Extensions**
@@ -130,7 +130,7 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 
 **MSS**
 1. User requests to add a tag (e.g., “CS2103T”) to a specific contact.
-2. ContactHelper updates the contact with the new tag.
+2. MeetCLI updates the contact with the new tag.
 3. Updated contact is shown in the contact list.
    * Use case ends.
 
