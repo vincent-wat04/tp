@@ -114,7 +114,10 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Company updatedCompany = editPersonDescriptor.getCompany().orElse(personToEdit.getCompany());
-        NextMeeting updatedNextMeeting = editPersonDescriptor.getNextMeeting().orElse(personToEdit.getNextMeeting());
+        NextMeeting updatedNextMeeting = editPersonDescriptor.getNextMeeting().orElse(
+                personToEdit.getNextMeeting()
+                        .map(meeting -> new NextMeeting(meeting.getTitle().toString()))
+                        .orElse(new NextMeeting(NextMeeting.DEFAULT_VALUE)));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
