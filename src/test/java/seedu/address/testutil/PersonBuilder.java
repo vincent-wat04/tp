@@ -55,7 +55,9 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         company = personToCopy.getCompany();
-        nextMeeting = personToCopy.getNextMeeting();
+        nextMeeting = personToCopy.getNextMeeting()
+                .map(meeting -> new seedu.address.model.person.NextMeeting(meeting.getTitle().toString()))
+                .orElse(new seedu.address.model.person.NextMeeting(seedu.address.model.person.NextMeeting.DEFAULT_VALUE));
         tags = new HashSet<>(personToCopy.getTags());
     }
 
