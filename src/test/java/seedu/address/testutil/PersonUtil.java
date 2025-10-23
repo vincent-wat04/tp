@@ -39,7 +39,8 @@ public class PersonUtil {
         if (!person.getCompany().value.isEmpty()) {
             sb.append(PREFIX_COMPANY).append(person.getCompany().value).append(" ");
         }
-        person.getNextMeeting().ifPresent(meeting -> sb.append(PREFIX_NEXT_MEETING).append(meeting.getTitle().toString()).append(" "));
+        person.getNextMeeting().ifPresent(meeting ->
+                sb.append(PREFIX_NEXT_MEETING).append(meeting.getTitle().toString()).append(" "));
         person.getTags().forEach(tag -> sb.append(PREFIX_TAG).append(tag.tagName).append(" "));
         return sb.toString().trim();
     }
