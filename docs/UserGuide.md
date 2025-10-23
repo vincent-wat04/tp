@@ -99,6 +99,38 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Adding a tag : addtag
+
+Adds a new tag to the system.
+This allows users to create reusable tags that can be applied to multiple contacts.
+
+Format: `addtag t/TAG_NAME`
+
+
+Examples:
+* `addtag t/friends`
+* `addtag t/colleagues` 
+
+Notes:
+- Tag names are case-insensitive (e.g., Friends and friends are considered the same tag).
+- If the tag already exists, the command will show a message indicating that the tag is already present.
+- The command does not automatically add the tag to any person — use the edit command to assign tags to contacts.
+
+### Listing all tags : listtag
+
+Shows all unique tags currently stored in the address book, sorted alphabetically, with counts.
+
+Format: `listtag`
+Example output:
+```
+Here are all tags in use:
+1. colleagues (3 contacts)
+2. family (2 contacts)
+3. friends (5 contacts)
+```
+
+Notes: Displays There are currently no tags. if no tags exist.
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
