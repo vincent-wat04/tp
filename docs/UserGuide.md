@@ -99,6 +99,38 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Adding a tag : addtag
+
+Adds a new tag to the system.
+This allows users to create reusable tags that can be applied to multiple contacts.
+
+Format: `addtag t/TAG_NAME`
+
+
+Examples:
+* `addtag t/friends`
+* `addtag t/colleagues` 
+
+Notes:
+- Tag names are case-insensitive (e.g., Friends and friends are considered the same tag).
+- If the tag already exists, the command will show a message indicating that the tag is already present.
+- The command does not automatically add the tag to any person — use the edit command to assign tags to contacts.
+
+### Listing all tags : listtag
+
+Shows all unique tags currently stored in the address book, sorted alphabetically, with counts.
+
+Format: `listtag`
+Example output:
+```
+Here are all tags in use:
+1. colleagues (3 contacts)
+2. family (2 contacts)
+3. friends (5 contacts)
+```
+
+Notes: Displays There are currently no tags. if no tags exist.
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -109,6 +141,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [m/NEXT
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* To create a new tag before assigning it, use `addtag t/TAG`
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
@@ -206,4 +239,6 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​`<br> e.g.,`edit 2 m/No meeting scheduled`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
+**AddTag** | `addtag t/TAG`<br> e.g., `addtag t/friends`
+**ListTag** | `listtag`
 **Help**   | `help`
