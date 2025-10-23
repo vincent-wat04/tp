@@ -180,11 +180,15 @@ Examples:
 * `add n/Alice Wong p/91234567 e/alice@tech.com a/21 Computing Dr c/Google m/Sprint planning on Thu 3pm t/client t/vip` - Adds Alice with company, meeting, and tags
 * `add n/Bob Lee p/88887777 e/bob@example.com a/Blk 456 t/friend` - Adds Bob with a tag but no company or meeting
 
+![Add Command](images/AddCommand.png)
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+![List Command](images/ListCommand.png)
 
 ### Adding a tag: `addtag`
 
@@ -204,6 +208,8 @@ Format: `addtag t/TAG_NAME`
 Examples:
 * `addtag t/vip` - Adds a "vip" tag to the registry
 * `addtag t/prospect` - Adds a "prospect" tag for potential clients
+
+![Add Tag Command](images/AddTagCommand.png)
 
 <box type="warning" seamless>
 
@@ -233,6 +239,8 @@ Here are all tags in use:
 4. friend (8 contacts)
 5. vip (2 contacts)
 ```
+
+![List Tag Command](images/ListTagCommand.png)
 
 <box type="tip" seamless>
 
@@ -272,6 +280,8 @@ Examples:
 * `edit 3 n/Betsy Crower t/` - Changes name and clears all tags
 * `edit 1 t/client t/vip` - Replaces all existing tags with "client" and "vip"
 
+![Edit Command](images/EditCommand.png)
+
 ### Locating persons: `find`
 
 Finds persons by name keywords, tags, and/or company. You can use any combination of these criteria.
@@ -303,6 +313,8 @@ Examples:
 * `find c/Google c/Microsoft` returns contacts at Google OR Microsoft
 * `find alice t/priority c/Microsoft` returns Alice who is tagged priority AND works at Microsoft
 
+![Find Command](images/FindCommand.png)
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -317,11 +329,15 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+![Delete Command](images/DeleteCommand.png)
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
 
 Format: `clear`
+
+![Clear Command](images/ClearCommand.png)
 
 ### Exiting the program : `exit`
 
