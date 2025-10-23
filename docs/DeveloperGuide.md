@@ -64,6 +64,21 @@ The next meeting information is modelled as a dedicated value object (`seedu.add
 
 Automated coverage lives in `AddCommandParserTest`, `EditCommandParserTest`, `ParserUtilTest`, and `PersonTest`, ensuring the prefix behaves correctly, invalid values are rejected, and equality semantics include the new field.
 
+### Tag commands (`addtag` and `listtag`)
+
+MeetCLI extends the base AddressBook3 logic to support tag management commands.  
+Users can now add new tags to specific contacts and view all existing tags in alphabetical order.
+
+<puml src="diagrams/LogicTagCommandsClassDiagram.puml" width="600" />
+
+The diagram above illustrates how the new `AddTagCommand` and `ListTagCommand` integrate with the existing architecture:
+- Both inherit from the abstract `Command` class.
+- `LogicManager` orchestrates their execution via the `Model` interface.
+- `ModelManager` implements the tag-related operations, delegating to the `TagRegistry` and `Person` classes.
+- `AddTagCommand` updates a contact’s tag list, while `ListTagCommand` queries and aggregates unique tags.
+
+This separation maintains the command pattern used throughout the app and keeps the tag functionality modular and testable.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**

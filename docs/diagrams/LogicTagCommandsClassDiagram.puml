@@ -1,0 +1,38 @@
+@startuml
+title Logic Component (AddTagCommand & ListTagCommand)
+
+' Packages for context
+package seedu.address.logic.commands {
+    abstract class Command
+    class AddTagCommand
+    class ListTagCommand
+}
+
+package seedu.address.logic {
+    class LogicManager
+}
+
+package seedu.address.model {
+    interface Model
+    class ModelManager
+    class Person
+    class TagRegistry
+    class Tag
+}
+
+' Relationships
+Command <|-- AddTagCommand
+Command <|-- ListTagCommand
+
+LogicManager --> Command : executes
+AddTagCommand --> Model : modifies tags in
+ListTagCommand --> Model : queries tags from
+Model <|.. ModelManager
+ModelManager --> TagRegistry : manages
+Person --> Tag : has
+
+' Optional: show flow
+AddTagCommand --> Person : adds Tag to
+ListTagCommand --> TagRegistry : retrieves all Tags
+
+@enduml
