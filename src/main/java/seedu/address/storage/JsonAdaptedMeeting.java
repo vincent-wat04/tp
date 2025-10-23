@@ -68,7 +68,7 @@ class JsonAdaptedMeeting {
      */
     public Meeting toModelType() throws IllegalValueException {
         if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, 
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     MeetingTitle.class.getSimpleName()));
         }
         if (!MeetingTitle.isValidTitle(title)) {
@@ -77,7 +77,7 @@ class JsonAdaptedMeeting {
         final MeetingTitle modelTitle = new MeetingTitle(title);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, 
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalDate.class.getSimpleName()));
         }
         final LocalDate modelDate;
@@ -88,7 +88,7 @@ class JsonAdaptedMeeting {
         }
 
         if (startTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, 
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalTime.class.getSimpleName()));
         }
         final LocalTime modelStartTime;
@@ -99,7 +99,7 @@ class JsonAdaptedMeeting {
         }
 
         if (endTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, 
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalTime.class.getSimpleName()));
         }
         final LocalTime modelEndTime;
@@ -110,7 +110,7 @@ class JsonAdaptedMeeting {
         }
 
         if (participants == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, 
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "participants"));
         }
         final List<Name> modelParticipants = new ArrayList<>();
@@ -129,7 +129,7 @@ class JsonAdaptedMeeting {
         }
         final String modelNotes = notes;
 
-        return new Meeting(modelTitle, modelDate, modelStartTime, modelEndTime, 
+        return new Meeting(modelTitle, modelDate, modelStartTime, modelEndTime,
                 modelParticipants, isCompleted, modelNotes);
     }
 }

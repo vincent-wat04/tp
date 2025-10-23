@@ -67,17 +67,17 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         company = source.getCompany().value;
-        
+
         // For backward compatibility, keep nextMeeting field
         nextMeeting = source.getNextMeeting()
                 .map(meeting -> meeting.getTitle().toString())
                 .orElse(NextMeeting.DEFAULT_VALUE);
-        
+
         // Add meetings list
         meetings.addAll(source.getMeetings().stream()
                 .map(JsonAdaptedMeeting::new)
                 .collect(Collectors.toList()));
-        
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

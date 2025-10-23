@@ -20,35 +20,23 @@ checkstyle {
     toolVersion = '11.0.0'
 }
 
-jacoco {
-    toolVersion = "0.8.10"
-}
-
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport  // 测试结束后自动生成覆盖率报告
+    finalizedBy jacocoTestReport
 }
 
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required = true    // VSCode Coverage Gutters 依赖这个文件
-        html.required = true   // 可用浏览器查看覆盖率报告
-        csv.required = false
-        // 输出路径（可选）
-        xml.outputLocation = file("$buildDir/reports/jacoco/test/jacocoTestReport.xml")
-        html.outputLocation = file("$buildDir/reports/jacoco/html")
+task coverage(type: JacocoReport) {
+    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from files(sourceSets.main.output)
+    executionData.from files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories.from files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
     }
-}
-
-// ✅ 方便命令：执行 ./gradlew coverage 会自动跑测试 + 生成覆盖率报告
-tasks.register('coverage') {
-    dependsOn test, jacocoTestReport
-    group = "verification"
-    description = "Run tests and generate Jacoco coverage reports"
-    doLast {
-        println "\n✅ Coverage report generated at: build/reports/jacoco/test/jacocoTestReport.xml"
-        println "   Open HTML report: build/reports/jacoco/html/index.html\n"
+    reports {
+        html.required = true
+        xml.required = true
     }
 }
 
@@ -73,6 +61,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
+
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
