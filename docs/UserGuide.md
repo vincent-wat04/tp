@@ -141,6 +141,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [m/NEXT
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* To create a new tag before assigning it, use `addtag t/TAG`
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
@@ -238,4 +239,6 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​`<br> e.g.,`edit 2 m/No meeting scheduled`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
+**AddTag** | `addtag t/TAG`<br> e.g., `addtag t/friends`
+**ListTag** | `listtag`
 **Help**   | `help`
