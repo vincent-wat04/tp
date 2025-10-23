@@ -1,6 +1,0 @@
-{
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "coverage-gutters.coverageFileNames": [
-        "build/reports/jacoco/test/jacocoTestReport.xml"
-    ]
-}
