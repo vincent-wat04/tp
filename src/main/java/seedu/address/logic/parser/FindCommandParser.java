@@ -144,5 +144,4 @@ public class FindCommandParser implements Parser<FindCommand> {
         // Combine all present predicates with AND semantics
         return new FindCommand(namePredicate.and(tagPredicate).and(companyPredicate), rawTags);
     }
-
 }
