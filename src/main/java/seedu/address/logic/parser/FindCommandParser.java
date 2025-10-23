@@ -31,8 +31,6 @@ import seedu.address.model.tag.Tag;
  * If keywords, tags, and/or company are given, they are AND-ed together.
  */
 public class FindCommandParser implements Parser<FindCommand> {
-
-    @Override
     /**
      * Parses the given {@code String} of arguments and returns a {@code FindCommand} object for execution.
      * <p>
@@ -66,6 +64,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @return a {@code FindCommand} representing the parsed search criteria
      * @throws ParseException if any of the provided arguments are invalid or the input format is incorrect
      */
+    @Override
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
 

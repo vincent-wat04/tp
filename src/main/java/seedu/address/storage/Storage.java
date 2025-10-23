@@ -25,7 +25,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     /**
      * Reads the user preferences from storage.
      *
-     * @return an {@code Optional} containing the {@code UserPrefs} if available, or an empty {@code Optional} if not found
+     * @return an {@code Optional} containing the {@code UserPrefs} if available or empty if not found.
      * @throws DataLoadingException if there is an error reading the data from storage
      */
     @Override
@@ -51,7 +51,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     /**
      * Reads the address book data from storage.
      *
-     * @return an {@code Optional} containing the {@code ReadOnlyAddressBook} if available, or an empty {@code Optional} if not found
+     * @return an {@code Optional} containing the {@code ReadOnlyAddressBook} if available, or empty if not found.
      * @throws DataLoadingException if there is an error reading the data from storage
      */
     @Override
@@ -66,4 +66,3 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 }
-
