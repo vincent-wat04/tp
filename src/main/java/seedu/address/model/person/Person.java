@@ -58,7 +58,6 @@ public class Person {
         this.email = email;
         this.address = address;
         this.company = company;
-        
         // Convert NextMeeting to Meeting list for backward compatibility
         List<Meeting> meetingList = new java.util.ArrayList<>();
         if (!nextMeeting.value.equals(NextMeeting.DEFAULT_VALUE)) {
