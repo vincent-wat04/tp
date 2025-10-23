@@ -39,7 +39,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setCompany(person.getCompany());
-        descriptor.setNextMeeting(person.getNextMeeting());
+        person.getNextMeeting().ifPresent(meeting -> 
+                descriptor.setNextMeeting(new seedu.address.model.person.NextMeeting(meeting.getTitle().toString())));
         descriptor.setTags(person.getTags());
     }
 
