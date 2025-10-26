@@ -62,9 +62,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         company = source.getCompany().value;
-        nextMeeting = source.getNextMeeting()
-                .map(meeting -> meeting.getTitle().toString())
-                .orElse(NextMeeting.DEFAULT_VALUE);
+        nextMeeting = source.getNextMeeting().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
