@@ -71,9 +71,7 @@ public class PersonCard extends UiPart<Region> {
      * Package-private for testing.
      */
     static String getNextMeetingText(Person person) {
-        return person.getNextMeeting()
-                .map(meeting -> "Next meeting: " + meeting.getTitle().toString())
-                .orElse("Next meeting: No meeting scheduled");
+        return formatNextMeetingLabel(person.getNextMeeting());
     }
 
     /**

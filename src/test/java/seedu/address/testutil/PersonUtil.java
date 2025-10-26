@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.person.NextMeeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -39,8 +40,10 @@ public class PersonUtil {
         if (!person.getCompany().value.isEmpty()) {
             sb.append(PREFIX_COMPANY).append(person.getCompany().value).append(" ");
         }
-        person.getNextMeeting().ifPresent(meeting ->
-                sb.append(PREFIX_NEXT_MEETING).append(meeting.getTitle().toString()).append(" "));
+        NextMeeting nextMeeting = person.getNextMeeting();
+        if (!NextMeeting.DEFAULT_VALUE.equals(nextMeeting.value)) {
+            sb.append(PREFIX_NEXT_MEETING).append(nextMeeting.value).append(" ");
+        }
         person.getTags().forEach(tag -> sb.append(PREFIX_TAG).append(tag.tagName).append(" "));
         return sb.toString().trim();
     }
