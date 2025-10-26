@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/zongmin-yu)]
 
 * Role: Developer
-* Responsibilities: Meeting Management
+* Responsibilities: Next-meeting experience & documentation
 
 ### Qu Qiancheng
 

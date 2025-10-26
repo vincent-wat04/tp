@@ -62,6 +62,8 @@ The next meeting information is modelled as a dedicated value object (`seedu.add
 **UI**
 - `PersonCard` now renders a `nextMeeting` label inside `PersonListCard.fxml`, showing `Next meeting: <value>` so users can see at-a-glance follow-up details.
 
+> **Scope decision (v1.5):** We experimented with a richer `Meeting` aggregate in v1.4 but removed it after integration issues. Keeping `NextMeeting` as a single value object lets us ship a reliable reminder while we refine the structured design for a later release.
+
 Automated coverage lives in `AddCommandParserTest`, `EditCommandParserTest`, `ParserUtilTest`, and `PersonTest`, ensuring the prefix behaves correctly, invalid values are rejected, and equality semantics include the new field.
 
 ### Tag commands (`addtag` and `listtag`)
