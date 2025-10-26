@@ -6,9 +6,9 @@ pageNav: 3
 
 # MeetCLI User Guide
 
-MeetCLI is a **desktop app for managing contacts and meetings, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MeetCLI can get your contact and meeting management tasks done faster than traditional GUI apps.
+MeetCLI is a **desktop app for managing contacts and lightweight follow-up reminders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MeetCLI can get your contact and follow-up planning done faster than traditional GUI apps.
 
-**Target Users**: Property agents, sales professionals, and business developers who need to manage large contact lists with company affiliations, tags, and meeting schedules.
+**Target Users**: Property agents, sales professionals, and business developers who need to manage large contact lists with company affiliations, tags, and a concise "next meeting" note.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -30,9 +30,8 @@ MeetCLI is a **desktop app for managing contacts and meetings, optimized for use
     - [Exiting the program : `exit`](#exiting-the-program--exit)
     - [Saving the data](#saving-the-data)
     - [Editing the data file](#editing-the-data-file)
-  - [Coming Soon](#coming-soon)
-    - [Meeting Management Commands `[v1.5]`](#meeting-management-commands-v15)
-    - [Other Planned Features `[v2.0 and beyond]`](#other-planned-features-v20-and-beyond)
+  - [Future Work](#future-work)
+    - [Deferred meeting enhancements](#deferred-meeting-enhancements)
   - [FAQ](#faq)
   - [Known issues](#known-issues)
   - [Command summary](#command-summary)
@@ -91,10 +90,10 @@ MeetCLI extends traditional address book functionality with powerful features fo
 * Search by single or multiple tags
 * View tag usage statistics with `listtag`
 
-**📅 Meeting Tracking**
-* Record next meeting for each contact
-* Meeting history infrastructure (full features coming in v1.5)
-* Track meeting completion status and notes
+**📅 Meeting Reminders**
+* Record a short "next meeting" note for each contact (e.g., "Demo on Fri 2pm")
+* Defaults to `No meeting scheduled` when omitted
+* Update or clear the note anytime with the `edit` command
 
 **🔍 Advanced Search**
 * Find by name, tags, company, or any combination
@@ -362,78 +361,13 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Coming Soon
+## Future Work
 
-### Meeting Management Commands `[v1.5]`
+### Deferred meeting enhancements
 
-**Mark Meeting as Completed: `mark`**
+During v1.4 we experimented with full-fledged meeting management (commands such as `mark`, `history`, and `addmeeting`). Internal QA revealed that the hybrid implementation was unstable, so we removed those commands for v1.5. The current release intentionally focuses on a **single free-form `m/` field** per contact.
 
-Mark the next upcoming meeting for a contact as completed, with optional notes.
-
-Format: `mark INDEX [o/NOTES]`
-
-* Marks the next meeting of the person at `INDEX` as completed
-* Optional notes can be added to record discussion points or outcomes
-* Once marked, the meeting moves to history and won't show as "Next meeting"
-
-Examples:
-* `mark 1` - Marks the next meeting for person 1 as completed
-* `mark 2 o/Discussed project timeline and next steps` - Marks meeting as completed with notes
-
-**View Meeting History: `history`**
-
-View all completed meetings for a contact, including meeting notes.
-
-Format: `history INDEX`
-
-* Shows all past meetings with their completion status and notes
-* Displays meeting dates, times, and participants
-* Helps track communication history with clients
-
-Example:
-* `history 1` - Shows all completed meetings for person 1
-
-**Add Meeting: `addmeeting`**
-
-Add a new meeting to a contact with full details (title, date, time, participants).
-
-Format: `addmeeting INDEX ti/TITLE d/DATE s/START_TIME e/END_TIME [o/NOTES]`
-
-* Supports multiple meetings per contact
-* Structured meeting data (not just free-form text)
-* Automatic validation of date/time formats
-
-Example:
-* `addmeeting 1 ti/Project Review d/2025-12-01 s/14:00 e/15:30 o/Quarterly review`
-
-**Edit Meeting: `editmeeting`**
-
-Edit details of an existing meeting.
-
-Format: `editmeeting INDEX MEETING_INDEX [ti/TITLE] [d/DATE] [s/START_TIME] [e/END_TIME] [o/NOTES]`
-
-Example:
-* `editmeeting 1 1 d/2025-12-02 s/15:00` - Reschedule the first meeting
-
-### Other Planned Features `[v2.0 and beyond]`
-
-**Enhanced Meeting Features:**
-* Meeting reminders and notifications
-* Calendar view for all meetings
-* Export meetings to calendar apps (iCal format)
-* Recurring meetings support
-
-**Advanced Search and Filtering:**
-* Search by meeting date ranges
-* Filter by upcoming meetings in next N days
-* Combined filters for complex queries
-
-**Data Management:**
-* Archiving old contacts
-* Bulk import/export (CSV format)
-* Data backup and restore
-
---------------------------------------------------------------------------------------------------------------------
+We still plan to explore structured meetings (tracking completion, notes, and history) after the v1.5 release, but only when we can guarantee a stable experience. Until then, keep using the optional `m/` prefix to jot down your next follow-up, and edit it whenever plans change.
 
 ## FAQ
 
@@ -449,11 +383,11 @@ Example:
 **Q**: Can I search for multiple companies at once?<br>
 **A**: Yes! Use `find c/COMPANY1 c/COMPANY2` to find contacts at either company (OR logic).
 
-**Q**: What happens to my meeting when I mark it as completed?<br>
-**A**: The `mark` command (coming in v1.5) will move the meeting to your history. It won't show as "Next meeting" anymore, but you can view it using the `history` command.
+**Q**: What happens when a meeting is done?<br>
+**A**: MeetCLI currently stores only one "Next meeting" note. After you meet the contact, use `edit INDEX m/No meeting scheduled` (or provide a new follow-up) to keep the reminder accurate.
 
 **Q**: Can I have multiple meetings for one contact?<br>
-**A**: The infrastructure supports multiple meetings per contact (added in v1.4). Full meeting management commands (`addmeeting`, `mark`, `history`) are coming in v1.5.
+**A**: Not yet. Advanced meeting management commands were deferred to keep v1.5 stable. For now, keep a single concise reminder in the `m/` field.
 
 **Q**: Why can't I use certain tags?<br>
 **A**: MeetCLI uses a tag registry to ensure consistency. Only tags in the allowed list can be used. Use `addtag` to add new tags, or check existing tags with `listtag`.
