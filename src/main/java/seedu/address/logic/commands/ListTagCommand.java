@@ -8,7 +8,6 @@ import java.util.TreeMap;
 
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Lists all unique tags in the address book.
