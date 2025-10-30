@@ -215,4 +215,16 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_nameWithHyphenAndSlash_success() {
+        AddCommandParser localParser = new AddCommandParser();
+        // Hyphenated name
+        String input1 = " n/Jean-Pierre p/87438807 e/jp@example.com a/Blk 30 c/Acme t/client";
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> localParser.parse(input1));
+        // Name containing slash
+        String input2 = " n/Alex/Lee p/87438807 e/al@example.com a/Blk 30 c/Acme t/client";
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> localParser.parse(input2));
+    }
+
 }
