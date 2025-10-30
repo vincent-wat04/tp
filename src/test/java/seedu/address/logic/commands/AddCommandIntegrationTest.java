@@ -39,6 +39,24 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
+    public void execute_nameDiffersOnlyByCase_warnsAndAdds() {
+        // Ensure there is an existing person named "John Doe"
+        Person base = new PersonBuilder().withName("John Doe").build();
+        model.addPerson(base);
+
+        // Attempt to add "john doe" (case-insensitive duplicate)
+        Person similar = new PersonBuilder().withName("john doe").build();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(similar);
+
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(similar))
+                + "\n" + String.format(AddCommand.MESSAGE_DUPLICATE_NAME_WARNING, Messages.format(base));
+
+        assertCommandSuccess(new AddCommand(similar), model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model,
