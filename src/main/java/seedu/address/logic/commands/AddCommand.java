@@ -44,6 +44,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_NAME_WARNING =
+            "Warning: A contact with the same name (case-insensitive) already exists: %1$s";
     public static final String MESSAGE_INVALID_TAG =
             "Tag '%1$s' is not allowed. Allowed tags: %2$s";
 
@@ -72,8 +74,16 @@ public class AddCommand extends Command {
             }
         }
 
+        // Check for potential duplicate by name (case-insensitive) and warn instead of blocking
+        String warning = model.getAddressBook().getPersonList().stream()
+                .filter(p -> p.getName().toString().equalsIgnoreCase(toAdd.getName().toString()))
+                .findFirst()
+                .map(existing -> String.format(MESSAGE_DUPLICATE_NAME_WARNING, Messages.format(existing)))
+                .orElse("");
+
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        String base = String.format(MESSAGE_SUCCESS, Messages.format(toAdd));
+        return new CommandResult(warning.isEmpty() ? base : base + "\n" + warning);
     }
 
     @Override
