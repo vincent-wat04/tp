@@ -16,10 +16,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
-    @Override
+   @Override
     public boolean test(Person person) {
+        final String nameLower = person.getName().fullName.toLowerCase();
+
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .map(k -> k.toLowerCase())
+                .anyMatch(nameLower::contains);
     }
 
     @Override
