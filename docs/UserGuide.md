@@ -287,32 +287,46 @@ Finds persons by name keywords, tags, and/or company. You can use any combinatio
 
 Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMPANY]...]`
 
-**Name Search:**
-* Case-insensitive substring match. e.g., `han` will match `Hans`
-* Multiple keywords use OR logic. e.g., `Hans Bo` returns contacts matching `Hans` OR `Bo`
+**Name Search**
 
-**Tag Search:**
+* Case-insensitive substring match (e.g., `han` matches `Hans`)
+* Multiple keywords use **OR** logic (e.g., `Hans Bo` → matches `Hans` **or** `Bo`)
+
+**Tag Search**
+
 * Exact, case-sensitive match
-* Multiple `t/` use AND logic. e.g., `t/client t/vip` returns contacts with BOTH tags
+* Multiple `t/` values use **AND** logic (e.g., `t/client t/vip` → contacts that have **both** `client` **and** `vip`)
+* **Allowed-tag check:** If any tag is **not** in the registry, **no search is performed** and a warning is shown
 
-**Company Search:**
+**Company Search**
+
 * Case-insensitive substring match
-* Multiple `c/` use OR logic. e.g., `c/Google c/Microsoft` returns contacts at Google OR Microsoft
+* Multiple `c/` values use **OR** logic (e.g., `c/Google c/Microsoft` → at Google **or** Microsoft)
 
-**Mixed Criteria:**
-* When using multiple types (name, tags, company), all criteria must be satisfied (AND logic)
-* Example: `find alice t/client c/Google` returns contacts named Alice who are tagged as client AND work at Google
+**Mixed Criteria**
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`
-* `find t/client` returns all contacts tagged as client
-* `find t/client t/vip` returns contacts with both client AND vip tags
-* `find c/Google` returns all contacts working at Google
-* `find c/Google c/Microsoft` returns contacts at Google OR Microsoft
-* `find alice t/priority c/Microsoft` returns Alice who is tagged priority AND works at Microsoft
+* When combining name / tags / company, the groups are combined with **AND** (all must match)
+* Example: `find alice t/client c/Google` → contacts named “alice” **and** tagged `client` **and** whose company contains “Google”
+
+<box type="warning" seamless>
+**Allowed tags only.**  
+If you filter with a tag that is not in the registry, the search will **not** run and you will see a message like:  
+`Cannot filter by invalid tag(s): friends. Allowed tags: [friend, client, classmate, family, colleague]`  
+Use `addtag t/TAG` to add new tags, or `listtag` to view existing ones.
+</box>
+
+**Examples**
+
+* `find John` → matches `john`, `John Doe`
+* `find alex david` → matches `Alex Yeoh`, `David Li`
+* `find t/client` → all contacts tagged `client`
+* `find t/client t/vip` → contacts with **both** `client` and `vip`
+* `find c/Google` → all at Google
+* `find c/Google c/Microsoft` → at Google **or** Microsoft
+* `find alice t/priority c/Microsoft` → “alice” **and** `priority` **and** “Microsoft”
 
 ![Find Command](images/FindCommand.png)
+
 
 ### Deleting a person : `delete`
 
