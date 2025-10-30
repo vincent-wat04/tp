@@ -82,4 +82,21 @@ public class NameContainsKeywordsPredicateTest {
         String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
         assertEquals(expected, predicate.toString());
     }
+
+    @Test
+    public void test_partialSubstringMatch_returnsTrue() {
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("j"));
+        assertTrue(predicate.test(new PersonBuilder().withName("John Doe").build()));
+
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("jo", "zz"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Johnson").build()));
+    }
+
+    @Test
+    public void test_partialSubstringMatchMixedCase_returnsTrue() {
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("AL"));
+        assertTrue(predicate.test(new PersonBuilder().withName("alice bob").build()));
+    }
 }
