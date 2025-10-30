@@ -177,3 +177,80 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 * **Module tag**: A tag representing an academic module (e.g., “CS2103T”) used to group contacts.
 
 --------------------------------------------------------------------------------------------------------------------
+
+### Find command — multi-criteria search & allowed-tag validation
+
+The `find` feature was extended to support **name**, **tag**, and **company** filtering in one command, plus a **registry check** that prevents searching with disallowed tags.
+
+#### Overview
+
+* **Syntax:** `find [KEYWORD…] [t/TAG…] [c/COMPANY…]`
+* **Semantics:**
+
+  * **Name:** case-insensitive **substring**, multiple keywords are **OR** (match any).
+  * **Tags:** exact, case-sensitive; multiple `t/` are **AND** (must have all).
+  * **Company:** case-insensitive substring; multiple `c/` are **OR** (match any).
+  * **Mixed criteria:** name, tag, and company groups are combined with **AND**.
+* **Allowed-tag validation:** if any requested tag is **not** in `TagRegistry`, the command **shows a warning** and **does not** update the filtered list.
+
+#### Key classes (no new abstractions introduced)
+
+* `FindCommand`
+
+  * Holds the composed `Predicate<Person>` and a `List<String> requestedTags` used only for the registry check and message formatting.
+  * On `execute(model)`, if `requestedTags` is non-empty:
+
+    1. Calls `model.getTagRegistry().isAllowed(tag)` for each.
+    2. If any invalid → returns warning `CommandResult` (no call to `updateFilteredPersonList`).
+    3. Else → `model.updateFilteredPersonList(predicate)` and returns summary via `Messages.getMessageForPersonListShownSummary(count)`.
+* `FindCommandParser`
+
+  * Tokenizes with `PREFIX_TAG (t/)` and `PREFIX_COMPANY (c/)`.
+  * Builds three predicates:
+
+    * `NameContainsKeywordsPredicate` (OR across keywords).
+    * Tag predicate (requires contact’s `Set<Tag>` **contains all** required tags).
+    * Company predicate (OR across substrings).
+  * Combines present predicates with **AND**.
+  * Validates **tag format** using `Tag.isValidTagName` (parser-level); **allowed-list** is validated in `FindCommand.execute`.
+  * Returns `new FindCommand(combinedPredicate, rawTags)` (passes raw tag names for the runtime registry check).
+
+> Design choice: **format vs. policy**. We keep *format* validation (e.g., illegal characters in a tag) in the parser, and *policy* validation (allowed vs. disallowed tag names) in the command at runtime so we can produce a non-fatal, user-friendly warning without throwing a parse error.
+
+#### Edge cases & behaviours
+
+* **Empty query:** if no keywords, no tags, and no companies → parser throws usage error.
+* **Empty `t/` or `c/` values:** parser throws usage error (e.g., `find t/  `).
+* **Invalid tag format:** parser throws `ParseException` with `Tag.MESSAGE_CONSTRAINTS`.
+* **Disallowed tag(s):** command returns
+
+  ```
+  Cannot filter by invalid tag(s): <names>. Allowed tags: [<registry contents>]
+  ```
+
+  and leaves the list unchanged.
+* **Equality and tests:** `FindCommand.equals` includes both the predicate and the `requestedTags` list to avoid accidental equality between semantically different invocations.
+
+#### Testability
+
+* **Parser tests:** cover
+
+  * name-only, tag-only, company-only, and mixed queries,
+  * multiple tag AND semantics,
+  * multiple company OR semantics,
+  * empty/invalid inputs (usage + constraints).
+* **Command tests:** cover
+
+  * allowed tags → filtered list updates + correct summary,
+  * disallowed tags → warning `CommandResult`, **no** update to `FilteredList`,
+  * `toString()` includes `requestedTags` (e.g., empty list `[]` for name-only).
+
+#### Minimal call flow
+
+1. `LogicManager#execute("find …")`
+2. `AddressBookParser#parseCommand` → `FindCommandParser#parse`
+3. `FindCommand` created with composed `Predicate<Person>` + `requestedTags`
+4. `FindCommand#execute(model)`:
+
+   * validate tags against `TagRegistry` → warn or
+   * `model.updateFilteredPersonList(predicate)` → summary via `Messages.getMessageForPersonListShownSummary(count)`

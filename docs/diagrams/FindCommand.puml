@@ -1,0 +1,106 @@
+@startuml
+title FindCommand + FindCommandParser (Class Diagram)
+
+skinparam classAttributeIconSize 0
+
+package "logic.commands" {
+  class Command
+  class FindCommand {
+    - predicate : java.util.function.Predicate<model.person.Person>
+    - requestedTags : java.util.List<String>
+    --
+    + FindCommand(predicate)
+    + FindCommand(predicate, requestedTags)
+    + execute(model : model.Model) : CommandResult
+    + equals(Object) : boolean
+    + toString() : String
+    --
+    {static} + COMMAND_WORD : String
+    {static} + MESSAGE_USAGE : String
+    {static} + MESSAGE_INVALID_FIND_TAG : String
+  }
+  Command <|-- FindCommand
+}
+
+package "logic.parser" {
+  class Parser<T>
+  class FindCommandParser {
+    + parse(args : String) : FindCommand
+  }
+  Parser <|.. FindCommandParser
+}
+
+package "logic" {
+  class Messages {
+    {static} + MESSAGE_PERSONS_LISTED_OVERVIEW : String
+    {static} + getMessageForPersonListShownSummary(count:int) : String
+  }
+}
+
+package "model" {
+  interface Model {
+    + updateFilteredPersonList(pred : java.util.function.Predicate<model.person.Person>) : void
+    + getFilteredPersonList() : java.util.List<model.person.Person>
+    + getTagRegistry() : TagRegistry
+  }
+
+  class TagRegistry {
+    + isAllowed(tagName : String) : boolean
+    + view() : java.util.Set<String>
+  }
+
+  package "person" {
+    class Person {
+      + getName() : Name
+      + getCompany() : Company
+      + getTags() : java.util.Set<tag.Tag>
+    }
+
+    class NameContainsKeywordsPredicate implements java.util.function.Predicate<Person> {
+      - keywords : java.util.List<String>
+      + test(p:Person) : boolean
+      + equals(Object) : boolean
+    }
+  }
+
+  package "tag" {
+    class Tag {
+      + tagName : String
+      {static} + isValidTagName(name:String) : boolean
+      {static} + MESSAGE_CONSTRAINTS : String
+      + equals(Object) : boolean
+      + hashCode() : int
+    }
+  }
+}
+
+package "logic.parser.core" as LPC {
+  class CliSyntax {
+    {static} + PREFIX_TAG
+    {static} + PREFIX_COMPANY
+  }
+  class ArgumentTokenizer {
+    {static} + tokenize(args:String, ...prefixes) : ArgumentMultimap
+  }
+  class ArgumentMultimap {
+    + getPreamble() : String
+    + getAllValues(prefix) : java.util.List<String>
+  }
+}
+
+' Relationships
+FindCommandParser --> FindCommand : creates
+FindCommand --> Model : execute()
+FindCommand --> Messages : summary message
+FindCommand --> TagRegistry : validate requested tags
+
+FindCommandParser --> LPC.ArgumentTokenizer : tokenize
+FindCommandParser --> LPC.ArgumentMultimap : read args
+FindCommandParser --> model.person.NameContainsKeywordsPredicate
+FindCommandParser --> model.tag.Tag : validate t/
+FindCommandParser ..> java.util.function.Predicate
+
+Model "1" o-- "many" model.person.Person
+model.person.Person --> model.tag.Tag : has Set<Tag>
+
+@enduml
