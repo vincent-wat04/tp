@@ -78,6 +78,15 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_allowsHyphenAndSlash_returnsName() throws Exception {
+        Name hyphenName = new Name("Jean-Pierre");
+        assertEquals(hyphenName, ParserUtil.parseName("Jean-Pierre"));
+
+        Name slashName = new Name("Alex/Lee");
+        assertEquals(slashName, ParserUtil.parseName("Alex/Lee"));
+    }
+
+    @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
