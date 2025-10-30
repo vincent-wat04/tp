@@ -57,8 +57,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        company.setText(person.getCompany().value.isEmpty()
-                ? "" : "Company: " + person.getCompany().value);
+        renderCompany(person.getCompany().value);
         nextMeeting.setText(getNextMeetingText(person));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -80,5 +79,26 @@ public class PersonCard extends UiPart<Region> {
      */
     static String formatNextMeetingLabel(NextMeeting nextMeeting) {
         return "Next meeting: " + nextMeeting.value;
+    }
+
+    /**
+     * Determines if the company label should be shown.
+     * Package-private for testing.
+     */
+    static boolean shouldShowCompany(String companyValue) {
+        return companyValue != null && !companyValue.trim().isEmpty();
+    }
+
+    private void renderCompany(String companyValue) {
+        boolean show = shouldShowCompany(companyValue);
+        if (show) {
+            company.setText("Company: " + companyValue);
+            company.setVisible(true);
+            company.setManaged(true);
+        } else {
+            company.setText("");
+            company.setVisible(false);
+            company.setManaged(false); // do not occupy space when hidden
+        }
     }
 }
