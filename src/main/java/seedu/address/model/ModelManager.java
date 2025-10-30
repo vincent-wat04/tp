@@ -48,6 +48,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.tagRegistry = new TagRegistry(DEFAULT_ALLOWED_TAGS);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        this.addressBook.getPersonList().forEach(person ->
+                person.getTags().forEach(tag -> this.tagRegistry.add(tag.tagName))
+        );
     }
 
     public ModelManager() {
@@ -94,6 +98,9 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+        addressBook.getPersonList().forEach(person ->
+            person.getTags().forEach(tag -> this.tagRegistry.add(tag.tagName))
+        );
     }
 
     @Override
@@ -116,6 +123,7 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        person.getTags().forEach(tag -> this.tagRegistry.add(tag.tagName));
     }
 
     @Override
@@ -123,6 +131,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        editedPerson.getTags().forEach(tag -> this.tagRegistry.add(tag.tagName));
     }
 
     //=========== Filtered Person List Accessors =============================================================
