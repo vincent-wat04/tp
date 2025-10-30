@@ -29,7 +29,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds persons by name keywords and/or tags.\n"
             + "Name match: case-insensitive contains.\n"
-            + "Tag match: exact (case-sensitive). Multiple t/ are AND-ed.\n"
+            + "Tag match: exact (case-insensitive). Multiple t/ are AND-ed.\n"
             + "Parameters: [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY...]\n"
             + "Examples:\n"
             + "  " + COMMAND_WORD + " alice bob\n"

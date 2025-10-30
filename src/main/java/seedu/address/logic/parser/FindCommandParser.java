@@ -84,12 +84,17 @@ public class FindCommandParser implements Parser<FindCommand> {
                     throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
                 }
             }
-            final Set<Tag> required = rawTags.stream().map(Tag::new).collect(Collectors.toSet());
+            // normalize required tags to lowercase for case-insensitive exact match
+            final Set<String> requiredLower = rawTags.stream()
+                    .map(s -> s.toLowerCase())
+                    .collect(Collectors.toSet());
 
-            // AND semantics: a person must have all required tags
+            // AND semantics: a person must have all required tags (case-insensitive equality)
             tagPredicate = person -> {
-                Set<Tag> personTags = person.getTags();
-                return personTags.containsAll(required);
+                Set<String> personTagLower = person.getTags().stream()
+                        .map(tag -> tag.tagName.toLowerCase())
+                        .collect(Collectors.toSet());
+                return personTagLower.containsAll(requiredLower);
             };
         }
 
