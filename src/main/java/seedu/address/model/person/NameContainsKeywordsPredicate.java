@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -16,7 +15,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
-   @Override
+    @Override
     public boolean test(Person person) {
         final String nameLower = person.getName().fullName.toLowerCase();
 

@@ -94,7 +94,7 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_partialSubstringMatch_mixedCase_returnsTrue() {
+    public void test_partialSubstringMatchMixedCase_returnsTrue() {
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("AL"));
         assertTrue(predicate.test(new PersonBuilder().withName("alice bob").build()));
