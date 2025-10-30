@@ -46,18 +46,16 @@ public class ListTagCommand extends Command {
         Map<String, Integer> tagCounts = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
         // Count tag occurrences across all persons
-        for (Person person : persons) {
-            for (Tag tag : person.getTags()) {
-                tagCounts.merge(tag.tagName, 1, Integer::sum);
-            }
-        }
-
-        // Handle empty tag set
-        if (tagCounts.isEmpty()) {
+        var registryView = model.getTagRegistry().view(); // Set<String>
+        if (registryView.isEmpty()) {
             return new CommandResult(MESSAGE_NO_TAGS);
         }
 
-        String tagLine = String.join(", ", tagCounts.keySet());
+        // Alphabetical, case-insensitive
+        var sorted = new java.util.ArrayList<>(registryView);
+        sorted.sort(String.CASE_INSENSITIVE_ORDER);
+
+        String tagLine = String.join(", ", sorted);
         return new CommandResult(MESSAGE_HEADER + tagLine);
     }
 
