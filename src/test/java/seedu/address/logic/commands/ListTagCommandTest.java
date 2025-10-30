@@ -18,7 +18,7 @@ import seedu.address.testutil.PersonBuilder;
  * <p>This class verifies the following behaviors:
  * <ul>
  *     <li>The command displays the correct "no tags" message when no persons exist.</li>
- *     <li>The command lists all unique tags alphabetically along with their respective counts.</li>
+ *     <li>The command lists all unique tags alphabetically.</li>
  *     <li>The {@code equals} method behaves as expected.</li>
  * </ul>
  */
@@ -46,7 +46,7 @@ public class ListTagCommandTest {
 
     /**
      * Verifies that when persons with tags exist in the model,
-     * the command output lists tags alphabetically with their contact counts.
+     * the command output lists tags alphabetically
      */
     @Test
     public void execute_withPersons_showsAlphabeticalTagListWithCounts() {
@@ -66,16 +66,8 @@ public class ListTagCommandTest {
         CommandResult result = new ListTagCommand().execute(model);
         String output = result.getFeedbackToUser().trim();
 
-        // Verify header appears
-        assertTrue(output.startsWith(ListTagCommand.MESSAGE_HEADER.trim()));
-
-        // Verify alphabetical order and counts
-        String expectedLine1 = "1. colleagues (1 contacts)";
-        String expectedLine2 = "2. friends (2 contacts)";
-
-        int idx1 = output.indexOf(expectedLine1);
-        int idx2 = output.indexOf(expectedLine2);
-        assertTrue(idx1 >= 0 && idx2 > idx1, "Expected alphabetical order not found.\nOutput:\n" + output);
+        assertTrue(output.startsWith(ListTagCommand.MESSAGE_HEADER));
+        assertEquals("Tags: colleagues, friends", output);
     }
 
     /**

@@ -14,8 +14,7 @@ import seedu.address.model.tag.Tag;
  * Lists all unique tags in the address book.
  * <p>
  * This command provides users with a quick overview of all tags currently
- * associated with contacts, displayed in alphabetical order and accompanied
- * by the number of contacts tagged with each tag.
+ * associated with contacts
  * <p>
  * Example usage:
  * <pre>
@@ -30,12 +29,10 @@ public class ListTagCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_NO_TAGS = "There are currently no tags.";
-    public static final String MESSAGE_HEADER = "Here are all tags in use:\n";
+    public static final String MESSAGE_HEADER = "Tags: ";
 
     /**
      * Executes the command by collecting all unique tags from the current model
-     * and displaying them in alphabetical order with the number of contacts
-     * associated with each tag.
      *
      * @param model The {@code Model} which the command should operate on.
      * @return A {@code CommandResult} containing the formatted list of tags or
@@ -60,23 +57,8 @@ public class ListTagCommand extends Command {
             return new CommandResult(MESSAGE_NO_TAGS);
         }
 
-        // Build result string
-        StringBuilder sb = new StringBuilder(MESSAGE_HEADER);
-        int index = 1;
-        for (Map.Entry<String, Integer> entry : tagCounts.entrySet()) {
-            sb.append(index++)
-                    .append(". ")
-                    .append(entry.getKey())
-                    .append(" (")
-                    .append(entry.getValue())
-                    .append(" contacts)");
-
-            if (index <= tagCounts.size()) {
-                sb.append("\n");
-            }
-        }
-
-        return new CommandResult(sb.toString());
+        String tagLine = String.join(", ", tagCounts.keySet());
+        return new CommandResult(MESSAGE_HEADER + tagLine);
     }
 
     @Override
