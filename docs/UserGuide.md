@@ -287,6 +287,16 @@ Finds persons by name keywords, tags, and/or company. You can use any combinatio
 
 Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMPANY]...]`
 
+> **Logic at a glance**
+> - **name**: OR across keywords (e.g., `find alice bob` matches either).
+> - **t/** (tags): AND across multiple tags (must have *all*).
+> - **c/** (company): OR across multiple companies.
+> - **Mixing dimensions** (name/tag/company): combined with AND.
+>
+> **Examples**
+> - `find alice t/friend t/teammate` → name contains *alice* AND has both tags.
+> - `find c/Google c/Meta t/lead` → company is (Google OR Meta) AND has tag *lead*.
+
 **Name Search**
 
 * Case-insensitive substring match (e.g., `han` matches `Hans`)
@@ -396,6 +406,9 @@ We still plan to explore structured meetings (tracking completion, notes, and hi
 
 **Q**: Can I search for multiple companies at once?<br>
 **A**: Yes! Use `find c/COMPANY1 c/COMPANY2` to find contacts at either company (OR logic).
+
+**Q**: Why does `find` use AND for tags but OR for name/company?<br>
+**A**: Tags act as precise filters, so MeetCLI requires every requested tag to match. Name and company keywords are treated as discovery aids, so matching any keyword keeps the search broad. When you combine them, the dimensions are applied together (AND) to narrow the list to relevant contacts.
 
 **Q**: What happens when a meeting is done?<br>
 **A**: MeetCLI currently stores only one "Next meeting" note. After you meet the contact, use `edit INDEX m/No meeting scheduled` (or provide a new follow-up) to keep the reminder accurate.
