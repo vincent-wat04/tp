@@ -10,6 +10,11 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
 **Target Users**: Property agents, sales professionals, and business developers who need to manage large contact lists with company affiliations, tags, and a concise "next meeting" note.
 
+### Why a CLI fits these users
+Property agents and sales professionals rely on keyboard-driven workflows (rapid entry, batch filtering, repeatable scripts). MeetCLI optimizes for speed and automation, reducing friction during lead capture and follow-ups.
+
+See [Developer Guide → Appendix: Requirements → Target user profile](DeveloperGuide.html#target-user-profile) for the full user profile and underlying assumptions.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Table of Contents
