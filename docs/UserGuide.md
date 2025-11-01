@@ -63,7 +63,7 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
    * `find c/Google` : Finds all contacts working at Google.
 
-   * `listtag` : Shows all tags currently in use with contact counts.
+* `listtag` : Shows all allowed tags alphabetically.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -220,23 +220,18 @@ Examples:
 
 ### Listing all tags: `listtag`
 
-Shows all unique tags currently in use across all contacts, sorted alphabetically with usage counts.
+Lists all tags currently registered for use, sorted alphabetically (case-insensitive).
 
 Format: `listtag`
 
 **Features:**
 * Alphabetically sorted (case-insensitive)
-* Shows number of contacts for each tag
-* Helpful for understanding your contact organization
+* Shows the exact registry view used by `add` and `edit`
+* Helpful for checking which tags you can apply or filter by
 
 Example output:
 ```
-Here are all tags in use:
-1. client (5 contacts)
-2. colleague (3 contacts)
-3. family (2 contacts)
-4. friend (8 contacts)
-5. vip (2 contacts)
+Tags: client, colleague, family, friend, vip
 ```
 
 ![List Tag Command](images/ListTagCommand.png)
@@ -246,7 +241,7 @@ Here are all tags in use:
 **Tip:** Use `listtag` before using `find t/TAG` to see which tags are available for filtering!
 </box>
 
-Note: If no contacts have tags, displays `There are currently no tags.`
+Note: If the registry is empty, displays `There are currently no tags.`
 
 ### Editing a person: `edit`
 
@@ -392,7 +387,7 @@ We still plan to explore structured meetings (tracking completion, notes, and hi
 **A**: Yes! Use the `addtag t/TAGNAME` command to add new tags to the allowed tag list. Once added, you can use them in `add` and `edit` commands.
 
 **Q**: How do I see all the tags I've created?<br>
-**A**: Use the `listtag` command to see all tags currently in use, along with how many contacts have each tag.
+**A**: Use the `listtag` command to view the allowed tag list in alphabetical order.
 
 **Q**: Can I search for multiple companies at once?<br>
 **A**: Yes! Use `find c/COMPANY1 c/COMPANY2` to find contacts at either company (OR logic).
