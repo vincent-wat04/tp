@@ -232,7 +232,7 @@ Format: `listtag`
 <box type="info" seamless>
   **How tag persistence works**
 
-- The tag registry is a runtime convenience for validation and autocomplete.
+- The tag registry is a runtime convenience for validation.
 - On startup, the registry is **rebuilt from the tags found in saved contacts**.
 - Tags added with `addtag` but **not assigned to any contact** are **not persisted** and therefore **won’t appear after restarting** the app.
 </box>
