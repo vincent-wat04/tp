@@ -229,17 +229,13 @@ Format: `listtag`
 * Shows number of contacts for each tag
 * Helpful for understanding your contact organization
 
-Example output:
-```
-Here are all tags in use:
-1. client (5 contacts)
-2. colleague (3 contacts)
-3. family (2 contacts)
-4. friend (8 contacts)
-5. vip (2 contacts)
-```
+<box type="info" seamless>
+  **How tag persistence works**
 
-![List Tag Command](images/ListTagCommand.png)
+- The tag registry is a runtime convenience for validation and autocomplete.
+- On startup, the registry is **rebuilt from the tags found in saved contacts**.
+- Tags added with `addtag` but **not assigned to any contact** are **not persisted** and therefore **won’t appear after restarting** the app.
+</box>
 
 <box type="tip" seamless>
 
