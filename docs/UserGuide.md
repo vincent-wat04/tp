@@ -13,28 +13,6 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 --------------------------------------------------------------------------------------------------------------------
 
 ## Table of Contents
-- [MeetCLI User Guide](#meetcli-user-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Quick start](#quick-start)
-  - [Features](#features)
-    - [Key Features Overview](#key-features-overview)
-    - [Viewing help : `help`](#viewing-help--help)
-    - [Adding a person: `add`](#adding-a-person-add)
-    - [Listing all persons : `list`](#listing-all-persons--list)
-    - [Adding a tag: `addtag`](#adding-a-tag-addtag)
-    - [Listing all tags: `listtag`](#listing-all-tags-listtag)
-    - [Editing a person: `edit`](#editing-a-person-edit)
-    - [Locating persons: `find`](#locating-persons-find)
-    - [Deleting a person : `delete`](#deleting-a-person--delete)
-    - [Clearing all entries : `clear`](#clearing-all-entries--clear)
-    - [Exiting the program : `exit`](#exiting-the-program--exit)
-    - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
-  - [Future Work](#future-work)
-    - [Deferred meeting enhancements](#deferred-meeting-enhancements)
-  - [FAQ](#faq)
-  - [Known issues](#known-issues)
-  - [Command summary](#command-summary)
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -63,7 +41,7 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
    * `find c/Google` : Finds all contacts working at Google.
 
-* `listtag` : Shows all allowed tags alphabetically.
+   * `listtag` : Shows all allowed tags alphabetically.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -234,7 +212,10 @@ Example output:
 Tags: client, colleague, family, friend, vip
 ```
 
-![List Tag Command](images/ListTagCommand.png)
+- The tag registry is a runtime convenience for validation.
+- On startup, the registry is **rebuilt from the tags found in saved contacts**.
+- Tags added with `addtag` but **not assigned to any contact** are **not persisted** and therefore **won’t appear after restarting** the app.
+</box>
 
 <box type="tip" seamless>
 
@@ -282,6 +263,16 @@ Finds persons by name keywords, tags, and/or company. You can use any combinatio
 
 Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMPANY]...]`
 
+> **Logic at a glance**
+> - **name**: OR across keywords (e.g., `find alice bob` matches either).
+> - **t/** (tags): AND across multiple tags (must have *all*).
+> - **c/** (company): OR across multiple companies.
+> - **Mixing dimensions** (name/tag/company): combined with AND.
+>
+> **Examples**
+> - `find alice t/friend t/teammate` → name contains *alice* AND has both tags.
+> - `find c/Google c/Meta t/lead` → company is (Google OR Meta) AND has tag *lead*.
+
 **Name Search**
 
 * Case-insensitive substring match (e.g., `han` matches `Hans`)
@@ -289,7 +280,7 @@ Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMP
 
 **Tag Search**
 
-* Exact, case-sensitive match
+* Exact, case-insensitive match
 * Multiple `t/` values use **AND** logic (e.g., `t/client t/vip` → contacts that have **both** `client` **and** `vip`)
 * **Allowed-tag check:** If any tag is **not** in the registry, **no search is performed** and a warning is shown
 
@@ -391,6 +382,9 @@ We still plan to explore structured meetings (tracking completion, notes, and hi
 
 **Q**: Can I search for multiple companies at once?<br>
 **A**: Yes! Use `find c/COMPANY1 c/COMPANY2` to find contacts at either company (OR logic).
+
+**Q**: Why does `find` use AND for tags but OR for name/company?<br>
+**A**: Tags act as precise filters, so MeetCLI requires every requested tag to match. Name and company keywords are treated as discovery aids, so matching any keyword keeps the search broad. When you combine them, the dimensions are applied together (AND) to narrow the list to relevant contacts.
 
 **Q**: What happens when a meeting is done?<br>
 **A**: MeetCLI currently stores only one "Next meeting" note. After you meet the contact, use `edit INDEX m/No meeting scheduled` (or provide a new follow-up) to keep the reminder accurate.

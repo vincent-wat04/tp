@@ -27,9 +27,7 @@ public class ModelManager implements Model {
      * <p>
      * Additional tags may be added at runtime via commands such as {@code TagAddCommand}.
      */
-    private static final Set<String> DEFAULT_ALLOWED_TAGS = Set.of(
-            "friend", "family", "colleague", "classmate", "client"
-    );
+    private static final Set<String> DEFAULT_ALLOWED_TAGS = Set.of();
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
