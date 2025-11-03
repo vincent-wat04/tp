@@ -12,31 +12,7 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Table of Contents
-- [MeetCLI User Guide](#meetcli-user-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Quick start](#quick-start)
-  - [Features](#features)
-    - [Key Features Overview](#key-features-overview)
-    - [Viewing help : `help`](#viewing-help--help)
-    - [Adding a person: `add`](#adding-a-person-add)
-    - [Listing all persons : `list`](#listing-all-persons--list)
-    - [Adding a tag: `addtag`](#adding-a-tag-addtag)
-    - [Listing all tags: `listtag`](#listing-all-tags-listtag)
-    - [Editing a person: `edit`](#editing-a-person-edit)
-    - [Locating persons: `find`](#locating-persons-find)
-    - [Deleting a person : `delete`](#deleting-a-person--delete)
-    - [Clearing all entries : `clear`](#clearing-all-entries--clear)
-    - [Exiting the program : `exit`](#exiting-the-program--exit)
-    - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
-  - [Future Work](#future-work)
-    - [Deferred meeting enhancements](#deferred-meeting-enhancements)
-  - [FAQ](#faq)
-  - [Known issues](#known-issues)
-  - [Command summary](#command-summary)
-
-<!-- * Table of Contents -->
+<!-- Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
