@@ -230,9 +230,11 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 
 * **CLI**: Command Line Interface.
 * **Contact**: A record representing a person with fields such as name, phone, and email.
-* **Tag**: A label assigned to contacts for grouping (e.g., “CS2103T”, “Family”).
+* **Tag**: A label assigned to contacts for grouping (e.g., "CS2103T", "Family").
 * **Command**: A textual instruction input by the user.
-* **Module tag**: A tag representing an academic module (e.g., “CS2103T”) used to group contacts.
+* **Predicate**: A functional interface in Java that evaluates a condition on an object and returns true or false. In MeetCLI, `Predicate<Person>` is used extensively in filtering operations (e.g., `find` command) to determine which contacts match user-specified criteria. Multiple predicates can be combined with logical AND/OR to create complex filters.
+* **TagRegistry**: A runtime component that maintains the allowed set of tag names for validation. It ensures consistency across `add`, `edit`, and `find` commands by rejecting tags not in the registry. 
+* **NextMeeting**: A value object that encapsulates a contact's next scheduled meeting It defaults to `"No meeting scheduled"` when omitted. This field allows users to maintain a single, free-form reminder per contact for lightweight follow-up tracking.
 
 --------------------------------------------------------------------------------------------------------------------
 
