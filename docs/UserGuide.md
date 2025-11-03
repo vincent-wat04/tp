@@ -290,7 +290,7 @@ Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMP
 
 **Tag Search**
 
-* Exact, case-sensitive match
+* Exact, case-insensitive match
 * Multiple `t/` values use **AND** logic (e.g., `t/client t/vip` → contacts that have **both** `client` **and** `vip`)
 * **Allowed-tag check:** If any tag is **not** in the registry, **no search is performed** and a warning is shown
 
