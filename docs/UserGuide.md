@@ -118,54 +118,9 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Tag system overview
 
-### Adding a person: `add`
-
-Adds a person to the address book with optional company, meeting, and tag information.
-
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​`
-
-**Required Fields:**
-* `n/NAME` - Person's full name
-* `p/PHONE_NUMBER` - Contact phone number
-* `e/EMAIL` - Email address
-* `a/ADDRESS` - Physical address
-
-**Optional Fields:**
-* `c/COMPANY` - Company or organization name (defaults to empty if omitted)
-* `m/NEXT_MEETING` - Next scheduled meeting details (defaults to "No meeting scheduled" if omitted)
-* `t/TAG` - Tags for categorization (can specify multiple tags)
-
-<box type="tip" seamless>
-
-**Tips:**
-* A person can have any number of tags (including 0)
-* Tags must be added to the registry first using `addtag` before they can be used
-* Company field can be left empty - useful for personal contacts
-* Use descriptive meeting text like "Project review on Monday 2pm"
-</box>
-
-<box type="warning" seamless>
-
-**Important:**
-* All tags used must already exist in the tag registry. If you get an error like "Cannot add person with invalid tag", use `addtag t/TAGNAME` first, then retry the `add` command.
-* Use `listtag` to see available tags.
-</box>
-
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` - Adds John Doe with only required fields
-* `add n/Alice Wong p/91234567 e/alice@tech.com a/21 Computing Dr c/Google m/Sprint planning on Thu 3pm t/client t/vip` - Adds Alice with company, meeting, and tags
-* `add n/Bob Lee p/88887777 e/bob@example.com a/Blk 456 t/friend` - Adds Bob with a tag but no company or meeting
-
-![Add Command](images/AddCommand.png)
-
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-![List Command](images/ListCommand.png)
+MeetCLI requires tags to be registered before they can be attached to contacts. Use `addtag` to expand the registry and `listtag` to review what is currently available.
 
 ### Adding a tag: `addtag`
 
@@ -221,6 +176,56 @@ Format: `listtag`
 </box>
 
 Note: If no contacts have tags, displays `There are currently no tags.`
+
+### Adding a person: `add`
+
+If you plan to use tags, read the [Tag system overview](#tag-system-overview) first.
+
+Adds a person to the address book with optional company, meeting, and tag information.
+
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​`
+
+**Required Fields:**
+* `n/NAME` - Person's full name
+* `p/PHONE_NUMBER` - Contact phone number
+* `e/EMAIL` - Email address
+* `a/ADDRESS` - Physical address
+
+**Optional Fields:**
+* `c/COMPANY` - Company or organization name (defaults to empty if omitted)
+* `m/NEXT_MEETING` - Next scheduled meeting details (defaults to "No meeting scheduled" if omitted)
+* `t/TAG` - Tags for categorization (can specify multiple tags)
+
+<box type="tip" seamless>
+
+**Tips:**
+* A person can have any number of tags (including 0)
+* Tags must be added to the registry first using `addtag` before they can be used
+* Company field can be left empty - useful for personal contacts
+* Use descriptive meeting text like "Project review on Monday 2pm"
+</box>
+
+<box type="warning" seamless>
+
+**Important:**
+* All tags used must already exist in the tag registry. If you get an error like "Cannot add person with invalid tag", use `addtag t/TAGNAME` first, then retry the `add` command.
+* Use `listtag` to see available tags.
+</box>
+
+Examples:
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` - Adds John Doe with only required fields
+* `add n/Alice Wong p/91234567 e/alice@tech.com a/21 Computing Dr c/Google m/Sprint planning on Thu 3pm t/client t/vip` - Adds Alice with company, meeting, and tags
+* `add n/Bob Lee p/88887777 e/bob@example.com a/Blk 456 t/friend` - Adds Bob with a tag but no company or meeting
+
+![Add Command](images/AddCommand.png)
+
+### Listing all persons : `list`
+
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+![List Command](images/ListCommand.png)
 
 ### Editing a person: `edit`
 
@@ -404,15 +409,27 @@ We still plan to explore structured meetings (tracking completion, notes, and hi
 
 ## Command summary
 
+### Tag-related commands
+
+Action     | Format, Examples
+-----------|---------------------------------------------------------------------------------------------------------------------------------
+**AddTag** | `addtag t/TAG`<br> e.g., `addtag t/vip`
+**ListTag** | `listtag`
+
+### Person-related commands
+
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 c/Acme Corp m/Catch up next Tue t/client`
-**AddTag** | `addtag t/TAG`<br> e.g., `addtag t/vip`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [c/COMPANY] [m/NEXT_MEETING] [t/TAG]…​`<br> e.g., `edit 2 c/Microsoft m/Client call on Friday`
-**Exit**   | `exit`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Find**   | `find [KEYWORD]... [t/TAG]... [c/COMPANY]...`<br> e.g., `find alice t/client c/Google`
-**Help**   | `help`
 **List**   | `list`
-**ListTag** | `listtag`
+
+### System commands
+
+Action     | Format, Examples
+-----------|---------------------------------------------------------------------------------------------------------------------------------
+**Help**   | `help`
+**Clear**  | `clear`
+**Exit**   | `exit`
