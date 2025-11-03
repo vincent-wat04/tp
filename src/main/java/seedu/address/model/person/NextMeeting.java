@@ -13,6 +13,8 @@ public class NextMeeting {
             "Next meeting can take any values, and it should not be blank";
     public static final String DEFAULT_VALUE = "No meeting scheduled";
 
+    public static final NextMeeting DEFAULT = new NextMeeting(DEFAULT_VALUE);
+
     /*
      * The first character of the next meeting must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
