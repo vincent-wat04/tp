@@ -63,7 +63,7 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
    * `find c/Google` : Finds all contacts working at Google.
 
-   * `listtag` : Shows all tags currently in use with contact counts.
+   * `listtag` : Shows all tags currently in use.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -220,7 +220,7 @@ Examples:
 
 ### Listing all tags: `listtag`
 
-Shows all unique tags currently in use across all contacts, sorted alphabetically with usage counts.
+Shows all unique tags currently in use across all contacts, sorted alphabetically.
 
 Format: `listtag`
 
