@@ -39,8 +39,6 @@ The bulk of the app's work is done by the following four components:
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
-(… keep existing architecture/logic/UI/storage sections as they are, just replacing AB3 → MeetCLI when needed …)
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
