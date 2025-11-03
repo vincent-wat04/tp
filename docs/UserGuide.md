@@ -63,7 +63,7 @@ MeetCLI is a **desktop app for managing contacts and lightweight follow-up remin
 
    * `find c/Google` : Finds all contacts working at Google.
 
-   * `listtag` : Shows all tags currently in use with contact counts.
+   * `listtag` : Shows all tags currently in use.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -220,7 +220,7 @@ Examples:
 
 ### Listing all tags: `listtag`
 
-Shows all unique tags currently in use across all contacts, sorted alphabetically with usage counts.
+Shows all unique tags currently in use across all contacts, sorted alphabetically.
 
 Format: `listtag`
 
@@ -229,17 +229,13 @@ Format: `listtag`
 * Shows number of contacts for each tag
 * Helpful for understanding your contact organization
 
-Example output:
-```
-Here are all tags in use:
-1. client (5 contacts)
-2. colleague (3 contacts)
-3. family (2 contacts)
-4. friend (8 contacts)
-5. vip (2 contacts)
-```
+<box type="info" seamless>
+  **How tag persistence works**
 
-![List Tag Command](images/ListTagCommand.png)
+- The tag registry is a runtime convenience for validation and autocomplete.
+- On startup, the registry is **rebuilt from the tags found in saved contacts**.
+- Tags added with `addtag` but **not assigned to any contact** are **not persisted** and therefore **won’t appear after restarting** the app.
+</box>
 
 <box type="tip" seamless>
 
@@ -294,7 +290,7 @@ Format: `find [KEYWORD [MORE_KEYWORDS]...] [t/TAG [t/TAG]...] [c/COMPANY [c/COMP
 
 **Tag Search**
 
-* Exact, case-sensitive match
+* Exact, case-insensitive match
 * Multiple `t/` values use **AND** logic (e.g., `t/client t/vip` → contacts that have **both** `client` **and** `vip`)
 * **Allowed-tag check:** If any tag is **not** in the registry, **no search is performed** and a warning is shown
 
