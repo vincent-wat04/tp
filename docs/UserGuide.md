@@ -112,7 +112,6 @@ MeetCLI extends traditional address book functionality with powerful features fo
 * `c/` - Company
 * `m/` - Meeting
 * `t/` - Tag
-* `o/` - Notes/Observations (for future commands)
 </box>
 
 ### Viewing help : `help`
