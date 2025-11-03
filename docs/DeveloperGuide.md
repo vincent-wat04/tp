@@ -128,32 +128,92 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 
 ### Use cases
 
-#### Use case: Delete a contact
+#### UC-01: Add a contact
+**Main Success Scenario (MSS):**
+1. User enters `add n/<name> p/<phone> e/<email> a/<address> [c/<company>] [m/<meeting>] [t/<tag>...]`.
+2. MeetCLI validates all fields and saves the contact.
+3. MeetCLI shows “New person added: <name>”.
+4. Use case ends.
 
-**MSS**
+**Extensions:**
+- 1a. A required field is missing → MeetCLI shows the usage message and rejects the command; UC resumes at step 1.
+- 2a. Any field fails validation (e.g., invalid email, phone, or duplicate tag) → MeetCLI shows the relevant error; UC resumes at step 1.
+
+---
+
+#### UC-02: Edit a contact
+**Main Success Scenario (MSS):**
+1. User enters `edit INDEX [n/<name>] [p/<phone>] [e/<email>] [a/<address>] [c/<company>] [m/<meeting>] [t/<tag>...]`.
+2. MeetCLI validates the updated fields.
+3. MeetCLI updates the contact and shows “Edited Person: <name>”.
+4. Use case ends.
+
+**Extensions:**
+- 1a. The given index is invalid → MeetCLI shows an error and the list remains unchanged.
+- 1b. No fields provided → MeetCLI shows the command usage; UC resumes at step 1.
+- 2a. Any updated field fails validation → MeetCLI shows the validation error; UC resumes at step 1.
+
+---
+
+#### UC-03: Find contacts by name/tag/company
+**Main Success Scenario (MSS):**
+1. User enters `find [KEYWORD…] [t/<tag>...] [c/<company>...]`.
+2. MeetCLI validates requested tags against the tag registry and builds the filters.
+3. MeetCLI lists contacts matching the combined criteria.
+4. Use case ends.
+
+**Extensions:**
+- 2a. A requested tag is not in the registry → MeetCLI shows a warning and the filtered list is not updated.
+- 3a. No contacts match → MeetCLI shows “0 persons listed!”; UC ends.
+
+---
+
+#### UC-04: List all tags
+**Main Success Scenario (MSS):**
+1. User enters `listtag`.
+2. MeetCLI reads the tag registry and shows the alphabetical list of allowed tags.
+3. Use case ends.
+
+**Extensions:**
+- 2a. The registry has no tags → MeetCLI shows “There are currently no tags.”; UC ends.
+
+---
+
+#### UC-05: Clear the address book
+**Main Success Scenario (MSS):**
+1. User enters `clear`.
+2. MeetCLI deletes all contacts and shows “Address book has been cleared!”.
+3. Use case ends.
+
+**Extensions:**
+- 1a. The address book is already empty → MeetCLI still reports success; UC ends.
+
+---
+
+#### UC-06: Delete a contact
+**Main Success Scenario (MSS):**
 1. User requests to list all contacts.
 2. MeetCLI shows the list of contacts.
 3. User requests to delete a specific contact in the list.
 4. MeetCLI deletes the contact.
-   * Use case ends.
+5. Use case ends.
 
-**Extensions**
-* 2a. The list is empty → Use case ends.
-* 3a. The given index is invalid → Error shown, return to step 2.
+**Extensions:**
+- 2a. The list is empty → Use case ends.
+- 3a. The given index is invalid → MeetCLI shows an error; UC resumes at step 2.
 
 ---
 
-#### Use case: Tag contacts by module
-
-**MSS**
-1. User requests to add a tag (e.g., “CS2103T”) to a specific contact.
+#### UC-07: Tag contacts by module
+**Main Success Scenario (MSS):**
+1. User requests to add a tag (e.g., `t/CS2103T`) to a specific contact.
 2. MeetCLI updates the contact with the new tag.
-3. Updated contact is shown in the contact list.
-   * Use case ends.
+3. The updated contact is shown in the contact list.
+4. Use case ends.
 
-**Extensions**
-* 1a. Tag already exists → App prevents duplication.
-* 1b. Invalid tag format → Error shown.
+**Extensions:**
+- 1a. Tag already exists for the contact → MeetCLI prevents duplication and shows a message.
+- 1b. Invalid tag format → MeetCLI shows an error; UC resumes at step 1.
 
 ---
 
